@@ -1,0 +1,43 @@
+1 -  Login    -> validacion correo y clave de acceso - sesion iniciada
+
+2 - Registro  -> usuario nuevo -> Validacion de datos  -> Insertar datos en BD -> Bienvenida
+
+3 - Olvida la clave? -> Correo al usuario -> Cambio de clave de acceso
+
+4 - Recuerdame (cookie)
+
+
+clase LoginController ->                  Modelo --> Login                     
+
+metodo index                               __construct
+metodo olvido  -> vista                    insertarRegistro
+metodo registro                            cambiarClaveAcceso
+metodo cambiaClave ->                      validaCorreo
+verifyUser ->                              verificar
+modelo                                     verUsuarioCorreo      
+vista                                      enviarCorreo
+
+
+
+clase Session -> Guardara los datos despues de logearse
+
+__construct
+iniciarLogin
+finalizarlogin
+getLogin
+getUsuario
+
+clase Mysqldb -> clase de la database
+
+Query
+queryNoSelect
+
+
+
+clase Shopcontroller            modelo Shop
+    
+index                           __construct
+modelo
+vista
+
+
