@@ -1,7 +1,7 @@
 <?php
 
 /**
- * La clase application maneja la url y lanza los procesos
+ * La clase Application maneja la URL y lanza los procesos
  */
 
 class Application
@@ -12,17 +12,13 @@ class Application
 
     function __construct()
     {
-        //print "Bienvenido a mi tienda virtual";
-        //$db = Mysqldb::getInstance()->getDatabase();
-
-       $this->separarURl();
+        $this->separarUrl();
 
         if ( ! $this->urlController ) {
             require_once '../app/controllers/LoginController.php';
             $page = new LoginController();
             $page->index();
-        }
-        elseif (file_exists('../app/controllers/' . ucfirst($this->urlController) . 'Controller.php')) {
+        } elseif (file_exists('../app/controllers/' . ucfirst($this->urlController) . 'Controller.php')) {
             $controller = ucfirst($this->urlController) . 'Controller';
             require_once '../app/controllers/' . $controller . '.php';
             $this->urlController = new $controller;
@@ -34,8 +30,7 @@ class Application
                 } else {
                     $this->urlController->{$this->urlAction}();
                 }
-            }
-            else {
+            } else {
                 if (strlen($this->urlAction) == 0) {
                     $this->urlController->index();
                 } else {
@@ -44,30 +39,28 @@ class Application
                     // Tratamos el error producido cuando creemos el controlador de Error
                 }
             }
-        }else {
+        } else {
             require_once '../app/controllers/LoginController.php';
             $page = new LoginController();
             $page->index();
         }
     }
 
-    public function separarURL()
+    public function separarUrl()
     {
-        if ($_SERVER['REQUEST_URI'] != '/')
-        {
-            $url = trim($_SERVER['REQUEST_URI'],  '/');
+        if ($_SERVER['REQUEST_URI'] != '/') {
+            $url = trim($_SERVER['REQUEST_URI'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
 
-            $this->urlController = isset($url[0]) ? $url[0] : null;
-            /* $variable[0] ?? null;  --> Otro tipo de operador ternario reducido que hace lo de arriba */
-            $this->urlAction = $url[1] ?? 1;
+            $this->urlController = $url[0] ?? null;
+            $this->urlAction = $url[1] ?? null;
 
             unset($url[0], $url[1]);
 
             $this->urlParams = array_values($url);
 
-            return $url;
+            //return $url;
         }
     }
 

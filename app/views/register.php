@@ -8,8 +8,8 @@
             <div class="form-group text-left">
                 <label for="first_name">Nombre:</label>
                 <input type="text" name="first_name" id="first_name" class="form-control"
-                       required placeholder="Escriba su nombre"
-                       value="<?php isset($data['dataForm']['firstName']) ? print $data['dataForm']['firstName'] : '' ?>"
+                    required placeholder="Escriba su nombre"
+                    value="<?php isset($data['dataForm']['firstName']) ? print $data['dataForm']['firstName'] : '' ?>"
                 >
             </div>
             <div class="form-group text-left">
