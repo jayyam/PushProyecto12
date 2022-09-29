@@ -43,9 +43,6 @@ class Mysqldb
             return self::$instancia;
         }
 
-    /**
-     * @return null
-     */
     public function getDatabase()
     {
         return $this->db;
