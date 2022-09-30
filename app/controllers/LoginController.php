@@ -21,7 +21,76 @@ class LoginController extends Controller
     }
     public function olvido()
     {
-        print 'Estoy en olvido';
+       $errors = [];
+
+       if ($_SERVER['REQUEST_METHOD'] =! 'POST')
+       {
+           $data = ['titulo' => 'Olvido de la contraseña',
+               'menu' => false,
+               'errors' => $errors,
+               'subtitle'=>'Olvidaste la contraseña?'];
+           $this->view('olvido', $data);
+       }
+       else
+       {
+           $email = $_POST['email'] ?? '';
+
+           if ($email == '') {
+               array_push($errors, 'El email es requerido');
+           }
+           if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+           {
+               array_push($errors, 'El email no es valido');
+           }
+           if (count($errors)==0)
+           {
+               if (!$this->model->existsEmail($email))
+               {
+                   array_push($errors, 'El email no existe en la base de datos');
+               }
+               else
+               {
+                   if ($this->model->sendEmail($email))
+                   {
+                       $data = [
+                           'titulo'=>'Cambio de contraseña de acceso',
+                           'menu' => false,
+                           'errors' => [],
+                           'subtitle'=>'Cambio de contraseña de acceso',
+                           'text' => 'Se ha enviado un correo a <b>.$email.</b> para que pueda cmabiar su clave de acceso. <b>No olvide revisa su carpeta de spam.<b/>',
+                           'color'=>'alert-success',
+                           'url'=>'login',//para desarrollar menuController
+                           'colorButton' => 'btn-success',
+                           'textButton' => 'Regresar',
+                           ];
+                   }
+                   else
+                   {
+                       $data = [
+                           'titulo'=>'Error con correo',
+                           'menu' => false,
+                           'errors' => [],
+                           'subtitle'=>'Error envio correo electronico',
+                           'text' => 'Problema al enviar correo electronico.<b>Por favor pruebe mas tarde',
+                           'color'=>'alert-danger',
+                           'url'=>'menu',//para desarrollar menuController
+                           'colorButton' => 'btn-danger',
+                           'textButton' => 'Regresar',
+                           ];
+
+                       $this->view('mensaje', $data);
+                   }
+               }
+           }
+           if (count($errors)>0)
+           {
+               ['titulo' => 'Olvido de la contraseña',
+                   'menu' => false,
+                   'errors' => $errors,
+                   'subtitle'=>'Olvidaste la contraseña?'];
+               $this->view('olvido', $data);
+           }
+       }
     }
 
     public function registro()
@@ -94,7 +163,38 @@ class LoginController extends Controller
             }
 
             if (count($errors) == 0) {
-                print 'Pasamos a dar de alta al usuario en la BD';
+
+                if ($this->model->createUser($dataForm))
+                {
+                    $data = [
+                        'titulo'=>'Bienvenido',
+                        'menu' => false,
+                        'errors' => [],
+                        'subtitle'=>'Bienvenido/a a nuestra tienda online',
+                        'text' => 'Gracias por su registro',
+                        'color'=>'alert-success',
+                        'url'=>'menu',//para desarrollar menuController
+                        'colorButton' => 'btn-success',
+                        'textButton' => 'Acceder',
+                    ];
+                    $this->view('mensaje', $data);
+                }
+                else
+                {
+                    $data = [
+                        'titulo'=>'Error',
+                        'menu' => false,
+                        'errors' => [],
+                        'subtitle'=>'Error en el proceso de registro',
+                        'text' => 'Su correo utilizado ya esta en uso',
+                        'color'=>'alert-danger',
+                        'url'=>'login',//para desarrollar menuController
+                        'colorButton' => 'btn-danger',
+                        'textButton' => 'Regresar',
+                    ];
+                    $this->view('mensaje', $data);
+                }
+
             } else {
                 $data = [
                     'titulo' => 'Registro',
@@ -105,7 +205,9 @@ class LoginController extends Controller
 
                 $this->view('register', $data);
             }
-        } else {
+        }
+        else
+        {
             // Mostramos el formulario
             $data = [
                 'titulo' => 'Registro',
@@ -114,6 +216,16 @@ class LoginController extends Controller
 
             $this->view('register', $data);
         }
+    }
+    public function changePassword($id)
+    {
+        $data = [
+            'titulo' => 'Registro',
+            'menu' => false,
+            'data' => $id,
+            'subtitle' => 'Cambia tu contraseña de acceso',
+        ];
+        //$this
     }
 }
 /** Pruebas
