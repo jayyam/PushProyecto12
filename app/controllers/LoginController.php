@@ -21,11 +21,12 @@ class LoginController extends Controller
     }
     public function olvido()
     {
-       $errors = [];
+        $errors = [];
 
-       if ($_SERVER['REQUEST_METHOD'] =! 'POST')
+       if ($_SERVER['REQUEST_METHOD'] != 'POST')
        {
-           $data = ['titulo' => 'Olvido de la contraseña',
+           $data = [
+	       'titulo' => 'Olvido de la contraseña',
                'menu' => false,
                'errors' => $errors,
                'subtitle'=>'Olvidaste la contraseña?'];

@@ -40,6 +40,7 @@ class Login
                         ':email' => $data['email'],
                         ':address' => $data['address'],
                         ':city' => $data['city'],
+			':state' => $data['state'],
                         ':zipcode' =>$data['postcode'],
                         ':country' =>$data['country'],
                         ':password' =>$password,//contraseña encriptada
