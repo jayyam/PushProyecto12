@@ -40,7 +40,7 @@ class Login
                         ':email' => $data['email'],
                         ':address' => $data['address'],
                         ':city' => $data['city'],
-			':state' => $data['state'],
+			            ':state' => $data['state'],
                         ':zipcode' =>$data['postcode'],
                         ':country' =>$data['country'],
                         ':password' =>$password,//contraseña encriptada
@@ -80,6 +80,39 @@ class Login
         $subject = "Cambiar contraseña en tiendamvc";
 
         return mail($email, $subject, $msg, $headers); //Enviando mail
+    }
+    public function changePassword($id, $password)
+    {
+        $pass =hash_hmac('sha512', $password['password'], key: 'Elperrodesanroque');//clave de encriptacion
+
+        $sql = 'UPDATE users SET password:=password WHERE id:=id';
+        $params =  [
+            'id' - $id,
+            'password' => $pass,
+            ];
+        $query = $this->db->prepare($sql);
+        $query->execute($params);
+    }
+    public function verifyUser($email, $password)
+    {
+        $errors = [];
+
+        $user = $this->getUserByEmail($email);
+        //var_dump(variables para ver lo que hay);
+
+        $pass =hash_hmac('sha512', $password['password'], key: 'ENCRIPTKEY');
+
+        if (! $user)
+        {
+            array_push($errors, 'Usuario no existe');
+
+        }
+        elseif ($user-$password !=$pass)
+        {
+            array_push($errors, 'contraseña incorrecta');
+        }
+        return $errors;
+
     }
 
 }

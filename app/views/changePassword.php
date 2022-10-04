@@ -6,6 +6,7 @@
     </div>
     <div class="card-body">
         <form action="<?= ROOT ?>login/changePassword/<?= $data['data'] ?>" method="post">
+            <input type="hidden" name="id" class="">//
             <div class="form-group text-left">
                 <label for="email">Correo electrónico:</label>
                 <input type="email" name="email" class="form-control">

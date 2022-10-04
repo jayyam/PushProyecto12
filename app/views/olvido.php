@@ -1,4 +1,6 @@
 <?php include_once 'header.php'?>
+
+
     <div class="card p-4 bg-light">
         <div class="card-header">
             <h1 class="text-center"><?= $data['subtitle'] ?></h1>
@@ -19,7 +21,6 @@
                 <p>Recibirás un correo electrónico, comprueba la bandeja de SPAM</p>
             </div>
         </div>
-    </div>
 </div>
 
 
