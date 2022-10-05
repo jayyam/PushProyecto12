@@ -28,7 +28,8 @@ class LoginController extends Controller
         print ('Estoy en loginController<br>');
         $data = [
             'titulo' => 'Login',
-            'menu' => false,
+            'menu'   => false,
+            'data' => $dataForm,
         ];
         $this->view('login', $data);
     }
@@ -41,8 +42,10 @@ class LoginController extends Controller
             $data = [
                 'titulo' => 'Olvido de la contraseña',
                 'menu' => false,
-                'errors' => $errors,
-                'subtitle' => 'Olvidaste la contraseña?'];
+                'errors' => [],
+                'subtitle' => '¿Olvidaste la contraseña?'
+            ];
+
             $this->view('olvido', $data);
         } else {
             $email = $_POST['email'] ?? '';
@@ -69,6 +72,9 @@ class LoginController extends Controller
                             'colorButton' => 'btn-success',
                             'textButton' => 'Regresar',
                         ];
+
+                        $this->view('mensaje', $data);
+
                     } else {
                         $data = [
                             'titulo' => 'Error con correo',
@@ -300,38 +306,51 @@ class LoginController extends Controller
     }
     public function verifyUser()
     {
+        $errors = [];
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
-            $errors = [];
-
+            
             $user = $_POST['user'] ?? '';
             $password = $_POST['password'] ?? '';
-            $remember = isset($_POST['user']) ? 'on' : 'off';
+            $remember = isset($_POST['remember']) ? 'on' : 'off';
 
-            $errors = $this->model - verifyUser($user, $password);
+            $errors = $this->model->verifyUser($user, $password);
 
             $value = $user .'|'.$password;
             if ($remember=='on'){$date = time()+(60*60*24*7);}
             else{$date = time()-1;}
 
-            $dataForm = [];
+            $dataForm = [
+                'user' => $user,
+                'remember' => $remember,
+            ];
 
-            if (!$errors) {
-                print 'bienvenido';
-            } else
-            {
+            if ( ! $errors ) {
+                $data = $this->model->getUserByEmail($user);
+                $session = new Session();
+                $session->login($data);
+
+                header("location:" . ROOT . 'shop');
+            } else {
                 $data = [
                     'titulo' => 'Login',
-                    'menu' => false,
-                    'errors' => [],
+                    'menu'   => false,
+                    'errors' => $errors,
                     'data' => $dataForm,
                 //var_dump($errors);
                 ];
-                $this->view('Login', $data);
+                $this->view('login', $data);
             }
+
+        } else {
+
+            $this->index();
+
         }
-        else{$this->index();}
+
+
     }
 
 }

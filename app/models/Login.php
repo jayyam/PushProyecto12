@@ -66,8 +66,8 @@ class Login
         $user = $this->getUserByEmail($email);
 
         $fullName = $user->first_name.' '.
-        $user->last_name1.' '.
-        $user->last_name2;//añadiendo aqui (?? ' ')elimina el requerimiento del segundo apellido. Examen
+        $user->last_name_1.' '.
+        $user->last_name_2;//añadiendo aqui (?? ' ')elimina el requerimiento del segundo apellido. Examen
 
         $msg = $fullName.', accede al siguiente enlace para cambiar tu contraseña. <br>';
         $msg.='<a href="'.ROOT.'login/changePassword/'.$user->id.'">Cambia tu clave de acceso</a>';
@@ -91,7 +91,7 @@ class Login
             'password' => $pass,
             ];
         $query = $this->db->prepare($sql);
-        $query->execute($params);
+        return $query->execute($params);
     }
     public function verifyUser($email, $password)
     {
@@ -107,7 +107,7 @@ class Login
             array_push($errors, 'Usuario no existe');
 
         }
-        elseif ($user-$password !=$pass)
+        elseif ($user->$password !=$pass)
         {
             array_push($errors, 'contraseña incorrecta');
         }

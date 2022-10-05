@@ -25,7 +25,7 @@ class Session
         if ($user)
         {
             $this->user = $user;
-            $_SESSION['user'] = true;
+            $_SESSION['user'] = $user;
             $this->login = true;
         }
     }
@@ -34,6 +34,16 @@ class Session
         unset($_SESSION['user']);
         unset($this->user);
         session_destroy();
-        $this->login->false;
+        $this->login = false;
+    }
+
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
     }
 }
