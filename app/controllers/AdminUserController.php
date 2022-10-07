@@ -11,12 +11,23 @@ class AdminUserController extends Controller
 
     public function index()
     {
-        $data = ['titulo' => 'Admninistracion  de usuarios',
-            'menu' => false,
-            'admin' => true,
-            'data' => [],
+        $session = new Session();
 
-        ];
+        $users = $this->model->getUsers();
+
+        if ($session->getLogin())
+        {
+            $data = [
+                'titulo' => 'Admninistracion  de usuarios',
+                'menu' => false,
+                'admin' => true,
+                'users' => $users,
+                ];
+        }
+        else {
+            header('LOCATION:' . ROOT . 'admin');
+        }
+
         $this->view('admin/users/index', $data);
     }
     public function create()
@@ -33,7 +44,7 @@ class AdminUserController extends Controller
             $dataForm=[
                 'name' => $name,
                 'email' => $email,
-                'password1' => $password1,
+                'password' => $password1,
             ];
             if (empty($name)) {
                 array_push($errors, 'El nombre de usuario es requerido');
@@ -50,9 +61,29 @@ class AdminUserController extends Controller
             if ($password1 != $password2) {
                 array_push($errors, 'Las claves no coinciden');
             }
-            if ( ! $errors) {
-                // Añadir en DB
-            } else {
+            if ( ! $errors)
+            {
+                if ($this->model->createAdminUser($dataForm))
+                {
+                    header("location:".ROOT.'adminUser');
+                }
+                else
+                {
+                    $data = [
+                        'titulo' => 'Error en la creacion de usuario',
+                        'menu' => false,
+                        'errors' => [],
+                        'subtitle' => 'Error al crear unsuario administrador',
+                        'texto' => 'Se ha producido error creando usuario administrador',
+                        'color' => 'alert-danger',
+                        'url' => 'adminUser',
+                        'colorButtom' => 'btn-danger',
+                        'textButton' => 'Volver'];
+                }
+                $this->view('admin/index2', $data);
+            }
+            else
+            {
 
                 $data = [
                     'titulo' => 'Administración de Usuarios - Alta',
@@ -79,9 +110,26 @@ class AdminUserController extends Controller
         }
 
 
-    public function update()
+    public function update($id)
     {
-        print'Actualixacion de usuario';
+        print'Modificacion de usuario' .$id;
+
+        if ($_SERVER['REQUEST_METHOD'] == $_POST)
+        {
+
+        }
+        else
+        {
+            $user =$this->model->getUserById($id);
+
+            $data = ['titulo' => 'Admninistracion  de usuarios - Editar',
+                'menu' => false,
+                'admin' => true,
+                'data' => $user,
+            ];
+
+            $this->view('admin/users/update', $data);
+        }
     }
 
     public function delete()

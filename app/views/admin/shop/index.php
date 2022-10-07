@@ -1,7 +1,7 @@
-<?php include_once dirname(__DIR__) . ROOT . 'header.php'?>
+<?php include_once VIEWS.'header.php'?>
     <div class="card p-4 bg-light">
         <div class="card-header">
-            <h1 class="text-center">REUTILIZABLE</h1>
+            <h1 class="text-center">Indice de shop</h1>
         </div>
         <div class="card-body">
             <form action="<?= ROOT ?>admin/verifyUser" method="post">
@@ -25,4 +25,4 @@
             </form>
         </div>
     </div>
-<?php include_once dirname(__DIR__) . ROOT . 'footer.php'?>
+<?php include_once VIEWS. 'footer.php'?>
