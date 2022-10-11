@@ -68,4 +68,56 @@ class AdminUser
 
         return $query->fetch(PDO::FETCH_OBJ);
     }
+
+    public function getConfig($type)
+    {
+        $sql = 'SELECT * FROM config WHERE type=:type ORDER BY value DESC';
+        $query = $this->db->prepare($sql);
+        $query->execute([':type' => $type]);
+
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function setUser($user)
+    {
+        $errors = [];
+
+        if ($user['password'])
+        {
+            $sql = 'UPDATE admins SET name=:name, emai=:email, password=:password, status=:status, update_at=:update_at WHERE id=:id';
+            $pass =hash_hmac('sha512', $user['password'], ENCRIPTKEY);
+
+            $params = [
+                ':id' => $user['id'],
+                ':name' => $user['name'],
+                ':email' => $user['email'],
+                ':password' => $pass,
+                ':status' => $user['status'],
+                ':update_at' => date('Y-m-d H:i:s'),
+                ];
+        }
+        $query = $this->db->prepare($sql);
+
+        if ( ! $query->execute($params) ) {
+            array_push($errors, 'Error al modificar el usuario administrador');
+        }
+
+        return $errors;
+    }
+
+    public function delete($id) //delete_at. Borrado blando. Realmente no se borra. Usado en laravel
+    {
+        $errors = [];
+
+        $sql = 'UPDATE admins SET deleted=:deleted, deleted_at=:deleted_at WHERE id=:id';
+
+        $params =[
+            'id' => $id,
+            'deleted' => 1,
+            'deleted_at' => date('Y-m-d H:i:s'),
+            ];
+
+
+        return $errors;
+    }
 }
