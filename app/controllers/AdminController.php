@@ -19,7 +19,7 @@ class AdminController extends Controller
         $this->view('admin/index', $data);
     }
 
-    public function verifyuser()
+    public function verifyUser()
     {
         $errors = [];
         $dataForm = [];
@@ -58,10 +58,13 @@ class AdminController extends Controller
             $data = [
             'titulo' => 'Admninistracion - Inicio',
             'menu' => false,
-            'admin' => true,
-            'data' => [],
-            ];
-            $this->view('admin/index2', $data);
+            'admin' => false,
+            'errors' => $errors,
+            'data' => $dataForm,
+        ];
+
+        $this->view('admin/index', $data);
+
     }
 
 }

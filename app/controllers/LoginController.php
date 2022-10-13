@@ -83,7 +83,7 @@ class LoginController extends Controller
                             'subtitle' => 'Error envio correo electronico',
                             'text' => 'Problema al enviar correo electronico.<b>Por favor pruebe mas tarde',
                             'color' => 'alert-danger',
-                            'url' => 'menu',//para desarrollar menuController
+                            'url' => 'login',//para desarrollar menuController
                             'colorButton' => 'btn-danger',
                             'textButton' => 'Regresar',
                         ];
@@ -106,7 +106,7 @@ class LoginController extends Controller
     public function registro()
     {
         $errors = [];
-        $data = [];
+        $dataForm = [];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Procesamos la información recibida del formulario
@@ -321,7 +321,7 @@ class LoginController extends Controller
             $value = $user .'|'.$password;
             if ($remember=='on'){$date = time()+(60*60*24*7);}
             else{$date = time()-1;}
-
+	    setcookie('shoplogin', $value, $date);
             $dataForm = [
                 'user' => $user,
                 'remember' => $remember,

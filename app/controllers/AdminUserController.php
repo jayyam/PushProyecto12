@@ -6,25 +6,27 @@ class AdminUserController extends Controller
 
     public function __construct()
     {
-        $this->model = $this->model('Admin');
+        $this->model = $this->model('AdminUser');
     }
 
     public function index()
     {
         $session = new Session();
 
-        $users = $this->model->getUsers();
+        
 
         if ($session->getLogin())
         {
+	$users = $this->model->getUsers();
             $data = [
                 'titulo' => 'Admninistracion  de usuarios',
                 'menu' => false,
                 'admin' => true,
                 'users' => $users,
-                ];
-        }
-        else {
+            ];
+
+            $this->view('admin/users/index', $data);
+        } else {
             header('LOCATION:' . ROOT . 'admin');
         }
 
@@ -78,9 +80,10 @@ class AdminUserController extends Controller
                         'color' => 'alert-danger',
                         'url' => 'adminUser',
                         'colorButtom' => 'btn-danger',
-                        'textButton' => 'Volver'];
+                        'textButton' => 'Volver',];
+$this->view('mensaje', $data);
                 }
-                $this->view('admin/index2', $data);
+                
             }
             else
             {
@@ -113,9 +116,10 @@ class AdminUserController extends Controller
     public function update($id)
     {
         print'Modificacion de usuario' .$id;
+ 	$errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] == $_POST) {
-            $errors = [];
+           
 
             $name = $_POST['name'] ?? '';
             $email = $_POST['email'] ?? '';
@@ -124,13 +128,13 @@ class AdminUserController extends Controller
             $status = $_POST['status'] ?? '';
 
 
-            if ($name) {
+            if ($name=='') {
                 array_push($errors, 'El nombre de usuario es requerido');
             }
-            if ($email) {
+            if ($emai==''l) {
                 array_push($errors, 'El correo electrónico de usuario es requerido');
             }
-            if ($status) {
+            if ($status=='') {
                 array_push($errors, 'Selecciona un stado para el usuario');
             }
             if (! empty($password1) || !empty($password2))
@@ -182,7 +186,7 @@ class AdminUserController extends Controller
 
             if (! $errors)
             {
-                header("location".ROOT.'adminUser');
+                header('location'.ROOT.'adminUser');
             }
         }
         $user =$this->model->getUserById($id);//si vengo via get (ELSES)

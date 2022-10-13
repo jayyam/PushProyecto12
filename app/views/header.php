@@ -25,14 +25,15 @@
 <!--            Ubicación del menú para usuarios logueados-->
         <?php endif; ?>
         <?php if(isset($data['admin']) && $data['admin']): ?>
-            <!--            Ubicación del menú admin-->
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a href="<?= ROOT ?>adminuser" class="nav-link">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= ROOT ?>adminproduct" class="nav-link">Productos</a>
+                </li>
+            </ul>
         <?php endif; ?>
-        <!--Aqui va la lista-->
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <a href="<?= ROOT ?>adminuser" class="nav-link">Usuarios</a>
-            </li>
-        </ul>
     </div>
 </nav>
 <div class="container-fluid">
@@ -52,4 +53,3 @@
                     </ul>
                 </div>
             <?php endif; ?>
-
