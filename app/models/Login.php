@@ -104,7 +104,7 @@ class Login
         $user = $this->getUserByEmail($email);
         //var_dump(variables para ver lo que hay);
 
-        $pass =hash_hmac('sha512', $password['password'], key: 'ENCRIPTKEY');
+        $pass =hash_hmac('sha512', $password['password'], key: ENCRIPTKEY);
 
         if (! $user)
         {
