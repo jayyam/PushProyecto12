@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql
--- Tiempo de generación: 05-10-2022 a las 18:17:41
+-- Tiempo de generación: 18-10-2022 a las 17:33:45
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.0.23
 
@@ -43,6 +43,65 @@ CREATE TABLE `admins` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `config`
+--
+
+CREATE TABLE `config` (
+  `id` int NOT NULL,
+  `type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `value` int NOT NULL,
+  `description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `config`
+--
+
+INSERT INTO `config` (`id`, `type`, `value`, `description`) VALUES
+(1, 'adminStatus', 0, 'Inactivo'),
+(2, 'adminStatus', 1, 'Activo'),
+(5, 'productType', 0, 'Inactivo'),
+(6, 'productType', 1, 'Activo'),
+(7, 'productStatus', 0, 'Inactivo'),
+(8, 'productStatus', 1, 'Activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `products`
+--
+
+CREATE TABLE `products` (
+  `id` int NOT NULL,
+  `type` char(1) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `name` varchar(200) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `description` text CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `discount` decimal(10,2) NOT NULL,
+  `send` decimal(10,2) NOT NULL,
+  `image` varchar(100) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `published` date NOT NULL,
+  `relation1` int NOT NULL,
+  `relation2` int NOT NULL,
+  `relation3` int NOT NULL,
+  `mostSold` char(1) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `new` char(1) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `deleted` tinyint NOT NULL,
+  `create_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `author` varchar(200) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `publisher` varchar(200) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `pages` int NOT NULL,
+  `people` text CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `objetives` text CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `necesites` text CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -61,6 +120,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name_1`, `last_name_2`, `email`, `address`, `city`, `state`, `zipcode`, `country`, `password`) VALUES
+(1, 'omar', 'garcia', 'sasn', 'olmsd@greg.cm', 'c/falsa 4', 'marcui', 'murcia', '30014', 'españa', '6943dabaafc9cd92e631749d675cf1810cbac10acc63c731bfa0c63e5a370e99a8d0e03e81a111e153f3107c487f98adf444081224dcf44988e273647cf0c1ad');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -68,6 +134,18 @@ CREATE TABLE `users` (
 -- Indices de la tabla `admins`
 --
 ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `config`
+--
+ALTER TABLE `config`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `products`
+--
+ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -85,6 +163,24 @@ ALTER TABLE `users`
 --
 ALTER TABLE `admins`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `config`
+--
+ALTER TABLE `config`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

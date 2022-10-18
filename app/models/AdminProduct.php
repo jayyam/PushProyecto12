@@ -34,4 +34,9 @@ class AdminProduct
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function createProduct($data)//examen
+    {
+
+    }
 }

@@ -30,4 +30,42 @@ class Validate
     {
 
     }
+
+    public static function resizeImage($image, $newWidth)
+    {
+        $file = 'img'.$image;
+
+        $info = getimagesize($file);//funcion que de vuelve una array numerico referente a anchura y altura
+        $width = $info[0];
+        $height = $info[1];
+        $type = $info['mime'];
+
+        $factor = $newWidth/$width;
+        $newHeight = $factor * $height;
+
+        $image = imagecreatefromjpeg($file);
+
+        $canvas = imagecreatetruecolor($newWidth, $newHeight);
+
+        imagecopyresampled($canvas, $image, 0,0,0,0, $newWidth, $newHeight, $width, $height);
+        //punto 0,0 de imagen corresponde con 0,0 canvas (esquina superior izquierda de la pantalla)
+        //Redimensionamiento de imagen
+        imagejpeg($canvas, $file, 75);
+    }
+    public static function text($string)
+    {
+        $search =[];
+        $replace =[];
+        $string = str_replace($search, $replace, $string);
+        $string = addslashes(htmlentities($string));
+
+        return $string;
+    }
+    public static function imageFile($file)//arreglar. se esta tratando de obtener imagenes de un dato null. Hay que comprobar que no se le pasa null
+    {
+        $imageArray = getimagesize($file);
+        $imageType = $imageArray[2];
+
+        return (bool) (in_array($imageType, [IMAGETYPE_JPEG, IMAGETYPE_PNG]));
+    }
 }

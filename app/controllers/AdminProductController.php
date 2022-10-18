@@ -44,7 +44,7 @@ class AdminProductController extends Controller
         if ($_SERVER['REQUEST_METHOD']=='POST')
         {
             //Recibimos informacion del form
-            $type = $_POST['type'] ?? '';
+            $typeconfig = $_POST['typeConfig'] ?? '';
             $name = addslashes(htmlentities($_POST['name'] ?? ''));
             $description = addslashes(htmlentities($_POST['description'] ?? ''));
             $price = Validate::number($_POST['price'] ?? '');
@@ -57,7 +57,7 @@ class AdminProductController extends Controller
             $relation3 =$_POST['relation3'] ?? '';
             $mostSold =$_POST['mostSold'] ?? '';
             $new =$_POST['new'] ?? '';
-            $status =$_POST['status'] ?? '';
+            $statusConfig =$_POST['statusConfig'] ?? '';
             //books
             $author = addslashes(htmlentities($_POST['author'] ?? ''));
             $publisher = addslashes(htmlentities($_POST['publisher'] ?? ''));
@@ -133,6 +133,18 @@ class AdminProductController extends Controller
                 array_push($errors, 'Debes seleccionar un tipo válido');
             }
 
+            $image = strtolower($image);
+
+            if (is_uploaded_file($_FILES['image']['tmp_name']))
+            {
+                move_uploaded_file($_FILES['image']['tmp_name'],'img/'.$image);
+                Validate::resizeImage($image, newWidth: 240);
+            }
+            else
+            {
+                array_push($errors, 'Error al subir el archivo de imagen');
+            }
+
             //CREANDO ARRAY DE DATOS
 
             $dataForm = [
@@ -148,7 +160,15 @@ class AdminProductController extends Controller
                 'discount' => $discount,
                 'send' => $send,
                 'pages' => $pages,
-                'published' => $published
+                'published' => $published,
+                'image' => $image,
+                'mostSold' => $mostSold,
+                'new' => $new,
+                'relation1' => $relation1,
+                'relation2' => $relation2,
+                'relation3' => $relation3,
+                'status' => $status,
+
             ];
 
             var_dump($dataForm);

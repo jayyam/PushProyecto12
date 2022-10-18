@@ -149,13 +149,13 @@
                 </div>
                 <div class="form-check text-left">
                     <input type="checkbox" name="mostSold" id="mostSold" class="form-check-input"
-                        <?= (isset($data['data']['mostSold']) && $data['data']['mostSold']==1) ? ' checked ' : '' ?>
+                        <?= (isset($data['data']['mostSold']) && $data['data']['mostSold']==1) ? ' checked ' : '' ?><!--Dotando de memoria a esta parte del formulario-->
                     >
                     <label for="mostSold" class="form-check-label">Producto más vendido</label>
                 </div>
                 <div class="form-check text-left">
                     <input type="checkbox" name="new" id="new" class="form-check-input"
-                        <?= (isset($data['data']['new']) && $data['data']['new']==1) ? ' checked ' : '' ?>
+                        <?= (isset($data['data']['new']) && $data['data']['new']==1) ? ' checked ' : '' ?><!--Dotando de memoria a esta parte del  formulario-->
                     >
                     <label for="new" class="form-check-label">Producto nuevo</label>
                 </div>
