@@ -30,11 +30,11 @@ class AdminUserController extends Controller
             header('LOCATION:' . ROOT . 'admin');
         }
 
-        $this->view('admin/users/index', $data);
     }
+
     public function create()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        if ($_SERVER['REQUEST_METHOD'] == $_POST)
         {
             print 'procesando datos';
             $errors = [];
@@ -76,10 +76,10 @@ class AdminUserController extends Controller
                         'menu' => false,
                         'errors' => [],
                         'subtitle' => 'Error al crear unsuario administrador',
-                        'texto' => 'Se ha producido error creando usuario administrador',
+                        'text' => 'Se ha producido error creando usuario administrador',
                         'color' => 'alert-danger',
                         'url' => 'adminUser',
-                        'colorButtom' => 'btn-danger',
+                        'colorButton' => 'btn-danger',
                         'textButton' => 'Volver',];
 $this->view('mensaje', $data);
                 }
@@ -118,8 +118,7 @@ $this->view('mensaje', $data);
         print'Modificacion de usuario' .$id;
  	$errors = [];
 
-        if ($_SERVER['REQUEST_METHOD'] == $_POST) {
-           
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $name = $_POST['name'] ?? '';
             $email = $_POST['email'] ?? '';

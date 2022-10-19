@@ -9,6 +9,7 @@ class AdminShopController extends Controller
     {
         $this->model = $this->model('AdminShop');
     }
+
     public function index()
     {
         $session = new Session();

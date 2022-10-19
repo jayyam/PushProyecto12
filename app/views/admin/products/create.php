@@ -6,9 +6,9 @@
             <h1 class="text-center">Alta de un producto</h1>
         </div>
         <div class="card-body">
-            <form action="<?= ROOT ?>adminProduct/create/" method="POST">
+            <form action="<?= ROOT ?>adminProduct/create/" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="status">Tipo de producto</label>
+                    <label for="type">Tipo de producto</label>
                     <select name="type" id="type" class="form-control">
                         <option value="">Selecciona el tipo de producto</option>
                         <?php foreach($data['type'] as $type): ?>
@@ -73,6 +73,8 @@
                            placeholder="Escribe el precio del producto sin comas ni símbolos" required
                            value="<?= (isset($data['data']['price'])) ? $data['data']['price'] : '' ?>">
                 </div>
+            </div>
+            <div id="course">
                 <div class="form-group text-left">
                     <label for="discount">Descuento del producto:</label>
                     <input type="text" name="discount" class="form-control" pattern="^(\d|-)?(\d|,)*\.?\d*$"

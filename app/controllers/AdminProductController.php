@@ -37,35 +37,11 @@ class AdminProductController extends Controller
     {
         $errors = [];
         $dataForm = [];
-        $type = $this->model->getConfig('productType');
-        $status = $this->model->getConfig('productStatus');
+        $typeConfig = $this->model->getConfig('productType');
+        $statusConfig = $this->model->getConfig('productStatus');
         $catalogue = $this->model->getCatalogue();
 
-        if ($_SERVER['REQUEST_METHOD']=='POST')
-        {
-            //Recibimos informacion del form
-            $typeconfig = $_POST['typeConfig'] ?? '';
-            $name = addslashes(htmlentities($_POST['name'] ?? ''));
-            $description = addslashes(htmlentities($_POST['description'] ?? ''));
-            $price = Validate::number($_POST['price'] ?? '');
-            $discount = Validate::number($_POST['discount'] ?? '');
-            $send = Validate::number($_POST['send'] ?? '');
-            $image =$_POST['image'] ?? '';
-            $published =$_POST['published'] ?? '';
-            $relation1 =$_POST['relation1'] ?? '';
-            $relation2 =$_POST['relation2'] ?? '';
-            $relation3 =$_POST['relation3'] ?? '';
-            $mostSold =$_POST['mostSold'] ?? '';
-            $new =$_POST['new'] ?? '';
-            $statusConfig =$_POST['statusConfig'] ?? '';
-            //books
-            $author = addslashes(htmlentities($_POST['author'] ?? ''));
-            $publisher = addslashes(htmlentities($_POST['publisher'] ?? ''));
-            $pages = Validate::number($_POST['type'] ?? '');
-            //courses
-            $people = addslashes(htmlentities($_POST['type'] ?? ''));
-            $objetives = addslashes(htmlentities($_POST['type'] ?? ''));
-            $necesites =addslashes(htmlentities($_POST['type'] ?? ''));
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // VALIDANDO LA INFORMACION -- FUNCIONES A USAR
 
@@ -77,6 +53,30 @@ class AdminProductController extends Controller
             //validaciones habituales
             //if(empty($variable)){array_push($errors, 'mensaje de error');} //si no existe variable
 
+	    $type = $_POST['type'] ?? '';
+            $name = Validate::text($_POST['name'] ?? '');
+            $description = Validate::text($_POST['description'] ?? '');
+            $price = Validate::number((float) ($_POST['price'] ?? 0.0));
+            $discount = Validate::number((float) ($_POST['discount'] ?? 0.0));
+            $send = Validate::number((float) ($_POST['send'] ?? 0.0));
+            $image = Validate::file($_FILES['image']['name']);
+            $published = $_POST['published'] ?? '';
+            $relation1 = $_POST['relation1'] != '' ? $_POST['relation1'] : 0;
+            $relation2 = $_POST['relation2'] != '' ? $_POST['relation2'] : 0;
+            $relation3 = $_POST['relation3'] != '' ? $_POST['relation3'] : 0;
+            $mostSold = isset($_POST['mostSold']) ? '1' : '0';
+            $new = isset($_POST['new']) ? '1' : '0';
+            $status = $_POST['status'] ?? '';
+            //Books
+            $author = Validate::text($_POST['author'] ?: 'Pepe');
+            $publisher = Validate::text($_POST['publisher'] ?: 'José');
+            $pages = Validate::number($_POST['pages'] ?: '100');
+            //Courses
+            $people = Validate::text($_POST['people'] ?? '');
+            $objetives = Validate::text($_POST['objetives'] ?? '');
+            $necesites = Validate::text($_POST['necesites'] ?? '');
+
+            // Validamos la información
             if (empty($name)) {
                 array_push($errors, 'El nombre del producto es requerido');
             }
@@ -133,7 +133,8 @@ class AdminProductController extends Controller
                 array_push($errors, 'Debes seleccionar un tipo válido');
             }
 
-            $image = strtolower($image);
+            if ($image) {
+                if (Validate::imageFile($_FILES['image']['tmp_name'])) {
 
             if (is_uploaded_file($_FILES['image']['tmp_name']))
             {
@@ -171,18 +172,25 @@ class AdminProductController extends Controller
 
             ];
 
-            var_dump($dataForm);
-        }
-        if (!$errors)
-        {
-            //enviamos la informacion al modelo
+            if ( ! $errors ) {
+
+                if ( $this->model->createProduct($dataForm) ) {
+
+                    header('location:' . ROOT . 'AdminProduct');
+
+                }
+                array_push($errors, 'Se ha producido un errpr en la inserción en la BD');
+            }
+
         }
 
         $data = [
             'titulo' => 'Administración de Productos - Alta',
             'menu' => false,
             'admin' => true,
-            'type' => $type,
+            'type' => $typeConfig,
+            'status' => $statusConfig,
+            'catalogue' => $catalogue,
             'errors' => $errors,
             'data' => $dataForm,
         ];

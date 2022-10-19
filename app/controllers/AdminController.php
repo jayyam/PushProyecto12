@@ -14,8 +14,8 @@ class AdminController extends Controller
         $data = ['titulo' => 'Admninistracion',
             'menu' => false,
             'data' => [],
-
         ];
+
         $this->view('admin/index', $data);
     }
 

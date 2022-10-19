@@ -9,14 +9,14 @@
                 <label for="name">Usuario:</label>
                 <input type="text" name="name" class="form-control"
                        placeholder="Escribe tu nombre completo" required
-                       value="<?= $data['data']['name'] ?? '' ?>"
+                       value="<?= $data['data']->name ?? '' ?>"
                 >
             </div>
             <div class="form-group text-left">
                 <label for="email">Correo Electrónico:</label>
                 <input type="email" name="email" class="form-control"
                        placeholder="Escribe el correo electrónico" required
-                       value="<?= $data['data']['email'] ?? '' ?>"
+                       value="<?= $data['data']->email ?? '' ?>"
                 >
             </div>
             <div class="form-group text-left">
@@ -34,7 +34,7 @@
                 <select name="status" id="status" class="form-control">
                        <option> value="">Selecciona status de usuario</option>
                         <?php foreach($data['status'] as $status): ?>
-                        <option value="<?= $status->value ?>"<?= $status->value == $data['user']-$status ? 'selected' : ''?><?= $status->description ?></option>
+                            <option value="<?= $status->value ?>"<?= $status->value == $data['data']->status ? ' selected' : '' ?>><?= $status->description ?></option>
                         <?php endforeach; ?>
                 </select
             </div>
