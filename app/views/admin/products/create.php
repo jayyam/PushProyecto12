@@ -1,6 +1,6 @@
 <?php include_once(VIEWS . 'header.php')?>
     <script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/classic/ckeditor.js"></script>
-    <script> src ="<?= ROOT . 'js/adminCreateProduct.js'?>"</script>
+    <script> src ="<?= ROOT . 'js/adminCreateProduct.js'?>"></script>
     <div class="card p-4 bg-light">
         <div class="card-header">
             <h1 class="text-center">Alta de un producto</h1>
@@ -12,7 +12,9 @@
                     <select name="type" id="type" class="form-control">
                         <option value="">Selecciona el tipo de producto</option>
                         <?php foreach($data['type'] as $type): ?>
-                            <option value="<?= $type->value ?>"><?= $type->description ?></option>
+                            <option value="<?= $type->value ?>"//><?= $type->description ?></option>
+				<?= (isset($data['data']['type']) && $data['data']['type'] == $type->value) ? ' selected' : '' ?>
+                        ><?= $type->description ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -38,13 +40,13 @@
                         <label for="publisher">Editorial:</label>
                         <input type="text" name="publisher" class="form-control"
                                placeholder="Escribe la editorial del libro"
-                               value="<?= (isset($data['data']['publisher'])) ? $data['data']['publisher'] : '' ?>"><!-- ?? ''-->
+                               value="<?= (isset($data['data']['publisher'])) ? $data['data']['publisher'] : '' ?>"> <!-- ?? ''-->
                     </div>
                     <div class="form-group text-left">
                         <label for="pages">Páginas:</label>
                         <input type="text" name="pages" class="form-control"
                                placeholder="Escribe el número de páginas del libro"
-                               value="<?= (isset($data['data']['pages'])) ? $data['data']['pages'] : '' ?>">//
+                               value="<?= (isset($data['data']['pages'])) ? $data['data']['pages'] : '' ?>">
                     </div>
                 </div>
                 <div id="course">
@@ -52,7 +54,7 @@
                         <label for="people">Público objetivo:</label>
                         <input type="text" name="people" class="form-control"
                                placeholder="Escribe el público objetivo del curso"
-                               value="<?= (isset($data['data']['people'])) ? $data['data']['people'] : '' ?>">//
+                               value="<?= (isset($data['data']['people'])) ? $data['data']['people'] : '' ?>">
                     </div>
                     <div class="form-group text-left">
                         <label for="objetives">Objetivos:</label>
@@ -82,8 +84,8 @@
                            value="<?= (isset($data['data']['discount'])) ? $data['data']['discount'] : '' ?>">
                 </div>
                 <div class="form-group text-left">
-                    <label for="envio">Coste del envío del producto:</label>
-                    <input type="text" name="envio" class="form-control" pattern="^(\d|-)?(\d|,)*\.?\d*$"
+                    <label for="send">Coste del envío del producto:</label>
+                    <input type="text" name="send" class="form-control" pattern="^(\d|-)?(\d|,)*\.?\d*$"
                            placeholder="Escribe el costo del envio del producto sin comas ni símbolos."
                            value="<?= (isset($data['data']['send'])) ? $data['data']['send'] : '' ?>">
                 </div>
@@ -170,8 +172,8 @@
         <div class="card-footer">
 
         </div>
-        <script>Classiceditor
-                .create(document.querySelector(#editor))
+        <script>ClassicEditor
+                .create(document.querySelector('#editor'))
                 .catch( error => {
                     console.error(error)
         </script>

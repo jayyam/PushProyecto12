@@ -13,8 +13,6 @@ class AdminUserController extends Controller
     {
         $session = new Session();
 
-        
-
         if ($session->getLogin())
         {
 	$users = $this->model->getUsers();
@@ -34,7 +32,7 @@ class AdminUserController extends Controller
 
     public function create()
     {
-        if ($_SERVER['REQUEST_METHOD'] == $_POST)
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' )
         {
             print 'procesando datos';
             $errors = [];
@@ -179,7 +177,7 @@ $this->view('mensaje', $data);
 
         $errors = []; //array vacio
 
-        if ($_SERVER['REQUEST_METHOD'] == $_POST) //si vengo por POST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') //si vengo por POST
         {
             $errors = $this->model->delete($id);
 

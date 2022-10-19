@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html><!--En esta clase van todos los menus no admin-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
