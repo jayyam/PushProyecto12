@@ -14,9 +14,15 @@ class ShopController extends Controller
 
         if ($session->getLogin())
         {
+
             $data = [
                 'titulo' => 'Bienvenid@ a nuestra tienda',
-                'menu' => false,
+                'menu' => true,
+                'subtitle' => 'Articulos mas vendidos'
+                ''=>'',
+                ''=>'',
+                ''=>'',
+
             ];
             $this->view('shop/index', $data);
         }
@@ -25,4 +31,38 @@ class ShopController extends Controller
             header('location:' . ROOT);
         }
     }
+    public function show($id)
+    {
+        var_dump($id);
+
+        $product =$this->model->getProductById($id);
+
+        $data = [
+            'titulo' => 'Detalle de product',
+            'menu' => true,
+            'subtitle' => $product->name,
+            'errors' => [],
+            'data' => $product,
+        ];
+
+    }
+
+    public function getProductById($id)
+    {
+        $sql = 'SELECT * FROM products WHERE id=:$id';
+        $query = $this->db->prepare($sql);
+        $query->execute([':id' => $id]);
+
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function whoami()
+    {
+
+    }
+    public function contact()
+    {
+
+    }
+
 }
