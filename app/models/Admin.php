@@ -18,7 +18,7 @@ class Admin
 
         $sql = 'SELECT * FROM admins WHERE email:=email';
         $query = $this->db->prepare($sql);
-        $query->bindParam('email', $data['email'], PDO::PARAM_STR);
+        $query->bindParam(':email', $data['user'], PDO::PARAM_STR);
         $query->execute();
         $admins = $query->fetchAll(PDO::FETCH_OBJ);
 
@@ -51,7 +51,7 @@ class Admin
             $query2 = $this->db->prepare($sql2);
 
             $params = [
-                'login' => date('Y-m-d H:i:s'),
+                ':login' => date('Y-m-d H:i:s'),
                 ':id' => $admins[0]->id,
             ];
             if ( ! $query2->execute($params))

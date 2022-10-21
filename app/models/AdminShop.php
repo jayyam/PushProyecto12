@@ -1,6 +1,6 @@
 <?php
 
-class adminShop
+class AdminShop
 {
     private $db;
 

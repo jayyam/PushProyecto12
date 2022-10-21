@@ -70,7 +70,7 @@ class AdminUserController extends Controller
                 else
                 {
                     $data = [
-                        'titulo' => 'Error en la creacion de usuario',
+                        'titulo' => 'Error en la creacion de adm',
                         'menu' => false,
                         'errors' => [],
                         'subtitle' => 'Error al crear unsuario administrador',
@@ -98,7 +98,7 @@ $this->view('mensaje', $data);
 
             }
         }
-        else
+      else
         {
         $data = ['titulo' => 'Admninistracion  de usuarios - Alta',
             'menu' => false,
@@ -128,7 +128,7 @@ $this->view('mensaje', $data);
             if ($name=='') {
                 array_push($errors, 'El nombre de usuario es requerido');
             }
-            if ($emai==''l) {
+            if ($emai=='') {
                 array_push($errors, 'El correo electrónico de usuario es requerido');
             }
             if ($status=='') {
@@ -173,7 +173,7 @@ $this->view('mensaje', $data);
 
     public function delete()
     {
-        print'eliminacion de usuario';
+        //print'eliminacion de usuario';
 
         $errors = []; //array vacio
 

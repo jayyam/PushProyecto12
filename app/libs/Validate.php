@@ -4,7 +4,7 @@ class Validate
 {
     public static function number($string)
     {
-        $search = [' ', '$', ',', 'SymboloEuro'];
+        $search = [' ', 'Euro','$', ',' ];
         $replace = ['','','',''];
 
         $number = str_replace($search, $replace, $string);// funcion que cambia los parametros definidos en $string. Uno busca y el otro reemplaza
@@ -15,7 +15,11 @@ class Validate
     public static function date($string)
     {
         $date = explode('-', $string);
-        return checkdate($date[1],$date[2],$date[0]);//obteniendo array con informacion del datePicker en AÑO/MES/DIA y reordenandola
+        if (count($date) == 1) {
+            return false;
+        }
+
+        return checkdate($date[1], $date[2], $date[0]);
     }
 
     public static function dateDif($string)
@@ -28,7 +32,11 @@ class Validate
     }
     public static function file($string)
     {
+        $search = [' ', '*', '!', '@', '?', 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'ñ', 'Ñ', 'ü', 'Ü', '¿', '¡'];
+        $replace = ['-', '', '', '', '', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'n', 'N', 'u', 'U', '', ''];
+        $file = str_replace($search,$replace, $string);
 
+        return $file;
     }
 
     public static function resizeImage($image, $newWidth)
@@ -50,12 +58,12 @@ class Validate
         imagecopyresampled($canvas, $image, 0,0,0,0, $newWidth, $newHeight, $width, $height);
         //punto 0,0 de imagen corresponde con 0,0 canvas (esquina superior izquierda de la pantalla)
         //Redimensionamiento de imagen
-        imagejpeg($canvas, $file, 75);
+        imagejpeg($canvas, $file, 80);
     }
     public static function text($string)
     {
-        $search =[];
-        $replace =[];
+        $search = ['^', 'delete', 'drop', 'truncate', 'exec', 'system'];
+        $replace = ['-', 'dele*te', 'dr*op', 'trunca*te', 'ex*ec', 'syst*em'];
         $string = str_replace($search, $replace, $string);
         $string = addslashes(htmlentities($string));
 

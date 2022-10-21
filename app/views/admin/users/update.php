@@ -4,7 +4,7 @@
         <h1 class="text-center">Modificacion/edicion administracion</h1>
     </div>
     <div class="card-body">
-        <form action="<?= ROOT ?>adminUser/update/"<?= $data['data']->id ?> method="POST">
+        <form action="<?= ROOT ?>adminUser/update/"<?= $data['data']->id ?>" method="POST">
             <div class="form-group text-left">
                 <label for="name">Usuario:</label>
                 <input type="text" name="name" class="form-control"
@@ -29,8 +29,8 @@
                 <input type="password" name="password2" class="form-control"
                        placeholder="Repite tu contraseña">
             </div>
-            <div class="form-group text-left">
-                <label for="status">Selecciona un estado:</label>
+            <div class="form-group">
+                <label for="status">Selecciona un estado</label>
                 <select name="status" id="status" class="form-control">
                        <option> value="">Selecciona status de usuario</option>
                         <?php foreach($data['status'] as $status): ?>
@@ -45,7 +45,6 @@
         </form>
     </div>
     <div class="card-footer">
-
     </div>
 </div>
 <?php include_once(VIEWS . 'footer.php')?>

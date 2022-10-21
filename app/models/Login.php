@@ -89,10 +89,10 @@ class Login
     {
         $pass =hash_hmac('sha512', $password['password'], key: 'Elperrodesanroque');//clave de encriptacion
 
-        $sql = 'UPDATE users SET password:=password WHERE id:=id';
+        $sql = 'UPDATE users SET password=:password WHERE id=:id';
         $params =  [
-            'id' - $id,
-            'password' => $pass,
+            ':id' => $id,
+            ':password' => $pass,
             ];
         $query = $this->db->prepare($sql);
         return $query->execute($params);
@@ -111,7 +111,7 @@ class Login
             array_push($errors, 'Usuario no existe');
 
         }
-        elseif ($user->$password !=$pass)
+        elseif ($user->$password != $pass)
         {
             array_push($errors, 'contraseña incorrecta');
         }

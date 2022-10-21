@@ -25,7 +25,7 @@ class LoginController extends Controller
         {
             $dataForm =  null;
         }
-        print ('Estoy en loginController<br>');
+        //print ('Estoy en loginController<br>');
         $data = [
             'titulo' => 'Login',
             'menu'   => false,
@@ -311,7 +311,6 @@ class LoginController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
-            
             $user = $_POST['user'] ?? '';
             $password = $_POST['password'] ?? '';
             $remember = isset($_POST['remember']) ? 'on' : 'off';

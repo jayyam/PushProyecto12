@@ -19,8 +19,8 @@ class AdminUser
             $password = hash_hmac('sha512', $data['password'], ENCRIPTKEY);
 
             //defino sentencia sql
-            $sql = 'INSERT INTO admins(name, email, password, status, deleted, login_at, updated_at, deleted_at 
-                    VALUES(:name, :email, :password, :status, :deleted, :login_at, :updated_at, :deleted_at)';
+            $sql = 'INSERT INTO admins(name, email, password, status, deleted, login_at, created_at, updated_at, deleted_at 
+                VALUES(:name, :email, :password, :status, :deleted, :login_at, :created_at, :updated_at, :deleted_at)';
 
             $params = [
                 ':name' => $data['name'],
@@ -39,7 +39,7 @@ class AdminUser
         }
         return $response;
     }
-    public function existEmail()
+    public function existsEmail($email)
     {
         $sql = 'SELECT * FROM admins WHERE email=:email';
         $query = $this->db->prepare($sql);
@@ -49,7 +49,7 @@ class AdminUser
         return $query->rowCount();
     }
 
-    public function getUser()
+    public function getUsers()
     {
         $sql = 'SELECT *FROM admins WHERE deleted = 0';
         $query =  $this->db->prepare($sql);
@@ -59,12 +59,11 @@ class AdminUser
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getUserByID($id)
+    public function getUserById($id)
     {
         $sql = 'SELECT * FROM admins WHERE id=:id';
         $query = $this->db->prepare($sql);
-        $query->bindParam(':email', $email, PDO::PARAM_STR);
-        $query->execute();
+        $query->execute([':id' => $id]);
 
         return $query->fetch(PDO::FETCH_OBJ);
     }
@@ -84,7 +83,8 @@ class AdminUser
 
         if ($user['password'])
         {
-            $sql = 'UPDATE admins SET name=:name, emai=:email, password=:password, status=:status, update_at=:update_at WHERE id=:id';
+            $sql = 'UPDATE admins SET name=:name, emai=:email, password=:password, status=:status, update_at=:update_at
+ 		    WHERE id=:id';
             $pass =hash_hmac('sha512', $user['password'], ENCRIPTKEY);
 
             $params = [
@@ -93,8 +93,19 @@ class AdminUser
                 ':email' => $user['email'],
                 ':password' => $pass,
                 ':status' => $user['status'],
-                ':update_at' => date('Y-m-d H:i:s'),
-                ];
+                ':updated_at' => date('Y-m-d H:i:s'),
+            ];
+        } else {
+
+            $sql = 'UPDATE admins SET name=:name, email=:email, status=:status, updated_at=:updated_at 
+                    WHERE id=:id';
+            $params = [
+                ':id' => $user['id'],
+                ':name' => $user['name'],
+                ':email' => $user['email'],
+                ':status' => $user['status'],
+                ':updated_at' => date('Y-m-d H:i:s'),
+            ];
         }
         $query = $this->db->prepare($sql);
 
@@ -117,6 +128,11 @@ class AdminUser
             'deleted_at' => date('Y-m-d H:i:s'),
             ];
 
+        $query = $this->db->prepare($sql);
+
+        if ( ! $query->execute($params) ) {
+            array_push($errors, 'Error al eliminar el usuario administrador');
+        }
 
         return $errors;
     }
