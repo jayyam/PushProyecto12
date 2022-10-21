@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql
--- Tiempo de generación: 18-10-2022 a las 17:33:45
+-- Tiempo de generación: 21-10-2022 a las 17:31:08
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.0.23
 
@@ -43,6 +43,23 @@ CREATE TABLE `admins` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` int NOT NULL,
+  `state` tinyint NOT NULL,
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `quantity` decimal(10,2) NOT NULL,
+  `discount` decimal(10,2) NOT NULL,
+  `send` decimal(10,2) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `config`
 --
 
@@ -60,8 +77,8 @@ CREATE TABLE `config` (
 INSERT INTO `config` (`id`, `type`, `value`, `description`) VALUES
 (1, 'adminStatus', 0, 'Inactivo'),
 (2, 'adminStatus', 1, 'Activo'),
-(5, 'productType', 0, 'Inactivo'),
-(6, 'productType', 1, 'Activo'),
+(5, 'productType', 1, 'Inactivo'),
+(6, 'productType', 2, 'Activo'),
 (7, 'productStatus', 0, 'Inactivo'),
 (8, 'productStatus', 1, 'Activo');
 
@@ -124,7 +141,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name_1`, `last_name_2`, `email`, `address`, `city`, `state`, `zipcode`, `country`, `password`) VALUES
-(1, 'omar', 'garcia', 'sasn', 'olmsd@greg.cm', 'c/falsa 4', 'marcui', 'murcia', '30014', 'españa', '6943dabaafc9cd92e631749d675cf1810cbac10acc63c731bfa0c63e5a370e99a8d0e03e81a111e153f3107c487f98adf444081224dcf44988e273647cf0c1ad');
+(3, 'omar', 'garcia', 'santana', 'omar@mail.com', 'fasla2', 'murc', 'murca', '30014', 'spaña', '6943dabaafc9cd92e631749d675cf1810cbac10acc63c731bfa0c63e5a370e99a8d0e03e81a111e153f3107c487f98adf444081224dcf44988e273647cf0c1ad');
 
 --
 -- Índices para tablas volcadas
@@ -134,6 +151,12 @@ INSERT INTO `users` (`id`, `first_name`, `last_name_1`, `last_name_2`, `email`, 
 -- Indices de la tabla `admins`
 --
 ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `carts`
+--
+ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -165,6 +188,12 @@ ALTER TABLE `admins`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `config`
 --
 ALTER TABLE `config`
@@ -180,7 +209,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

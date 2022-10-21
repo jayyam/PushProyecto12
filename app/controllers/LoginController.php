@@ -320,7 +320,7 @@ class LoginController extends Controller
             $value = $user .'|'.$password;
             if ($remember=='on'){$date = time()+(60*60*24*7);}
             else{$date = time()-1;}
-	    setcookie('shoplogin', $value, $date);
+	        setcookie('shoplogin', $value, $date);
             $dataForm = [
                 'user' => $user,
                 'remember' => $remember,

@@ -13,7 +13,7 @@ class Login
     {
         $sql = 'SELECT * FROM users WHERE email=:email';
         $query = $this->db->prepare($sql);
-        $query->bindParam(':email', $email, PDO::PARAM_STR);//param:':email', $email, PDO::PARAM_STR
+        $query->bindParam(':email', $email, PDO::PARAM_STR);//buscando argumentos en la db -> Error
         $query->execute();
 
         return $query->rowCount();

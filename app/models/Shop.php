@@ -38,7 +38,7 @@ class Shop
     {
 
         $msg = $name.', Envia un mensaje nuevo. <br>';
-        $msg.= 'Sucorreo es: '.$email.<br>
+        $msg.= 'Sucorreo es: '.$email. '<br>';
         $msg.='Mensaje:<br>'.$message;
 
         $headers = 'MIME-Version:1.0\r\n';

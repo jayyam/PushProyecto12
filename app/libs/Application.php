@@ -1,8 +1,6 @@
 <?php
 
-/**
- * La clase Application maneja la URL y lanza los procesos
- */
+//La clase Application maneja la URL y lanza los procesos
 
 class Application
 {
