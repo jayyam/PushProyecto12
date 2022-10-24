@@ -87,7 +87,7 @@ class Login
     }
     public function changePassword($id, $password)
     {
-        $pass =hash_hmac('sha512', $password['password'], key: 'Elperrodesanroque');//clave de encriptacion
+        $pass = hash_hmac('sha512', $password, ENCRIPTKEY); //clave de encriptacion
 
         $sql = 'UPDATE users SET password=:password WHERE id=:id';
         $params =  [
@@ -104,14 +104,11 @@ class Login
         $user = $this->getUserByEmail($email);
         //var_dump(variables para ver lo que hay);
 
-        $pass =hash_hmac('sha512', $password['password'], key: ENCRIPTKEY);
+        $pass = hash_hmac('sha512', $password, ENCRIPTKEY);
 
-        if (! $user)
-        {
+        if ( ! $user ){
             array_push($errors, 'Usuario no existe');
-
-        }
-        elseif ($user->$password != $pass)
+}elseif ($user->password != $pass)
         {
             array_push($errors, 'contraseña incorrecta');
         }
