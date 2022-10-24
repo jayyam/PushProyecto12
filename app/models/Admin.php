@@ -16,24 +16,24 @@ class Admin
 
         $password =hash_hmac('sha512', $data['password'], key: 'ENCRIPTKEY');
 
-        $sql = 'SELECT * FROM admins WHERE email:=email';
+        $sql = 'SELECT * FROM admins WHERE email=:email';
         $query = $this->db->prepare($sql);
-        $query->bindParam(':email', $data['user'], PDO::PARAM_STR);
+        $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->execute();
-        $admins = $query->fetchAll(PDO::FETCH_OBJ);
+        $admins = $query->fetch(PDO::FETCH_OBJ);
 
 
 
         if (! $admins)
         {
-            array_push($errors, 'Usuario no existe en nuestros registros');
+            array_push($errors, 'Usuario no existe en nuestros registros1');
 
         }
         elseif (count($admins) >1)
         {
             array_push($errors, 'Corrreo duplicado');
         }
-        elseif ($password != $admins[0]->$password)
+        elseif ($password != $admins[0]->password)
         {
             array_push($errors, 'Clave acceso incorrecta');
         }
@@ -43,7 +43,7 @@ class Admin
         }
         elseif ($admins[0]->deleted == 1)
         {
-            array_push($errors, 'El usuario no existe en nuestros registros');
+            array_push($errors, 'El usuario no existe en nuestros registros2');
         }
         else
         {
