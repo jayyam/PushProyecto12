@@ -29,13 +29,13 @@ class Cart
 
     public function addProduct($product_id, $user_id)
     {
-        $sql = 'SELECT * FROM product WHERE id=:id';
+        $sql = 'SELECT * FROM products WHERE id=:id';
         $query = $this->db->prepare($sql);
         $query->execute([':id'=>$product_id]);
         $product = $query->fetch(PDO::FETCH_OBJ);
 
 
-        $sql2 = 'INSERT INTO carts(state, user_id, product_id, quantity, discount) VALUES(:state, :user_id, :product_id, :quantity, :discount)';
+        $sql2 = 'INSERT INTO carts(state, user_id, product_id, quantity, discount, send, date) VALUES(:state, :user_id, :product_id, :quantity, :discount, :send, :date)';
         $query2 = $this->db->prepare($sql2);
 
         $params2 = [
@@ -48,5 +48,7 @@ class Cart
             ':date' => date('Y-m-d H:i:s'),
         ];
 
+        $query2->execute($params2);
+        return $query2->rowCount();
     }
 }

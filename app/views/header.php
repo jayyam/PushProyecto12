@@ -1,56 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $data['titulo'] ?></title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title><?= $data['Header'] ?></title>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
     <!-- fontAwsome -->
-    <script> src="https://kit.fontawesome.com/79cd5bb62e.js"</script>
-</head>
+        <script> src="https://kit.fontawesome.com/79cd5bb62e.js"</script>
+    </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a href="<?= ROOT ?>shop" class="navbar-brand">Tienda</a>
-    <div class="collapse navbar-collapse" id="menu">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-5">
+    <a href="<?= ROOT ?>shop" class="navbar-brand ms-3">Tienda</a>
+    <div class="navbar collapse navbar-collapse p-0" id="menu">
         <!--        Enlaces del menú para todos-->
         <?php if($data['menu']): ?>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>courses" class="nav-link <?= (isset($data['active']) && $data['active']=='courses') ? 'active' : '' ?>">Cursos</a>
+                    <a href="<?= ROOT ?>courses" class="nav-link text-light <?= (isset($data['active']) && $data['active']=='courses') ? 'active' : '' ?>">Cursos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>books" class="nav-link <?= (isset($data['active']) && $data['active']=='books') ? 'active' : '' ?>">Libros</a>
+                    <a href="<?= ROOT ?>books" class="nav-link  text-light <?= (isset($data['active']) && $data['active']=='books') ? 'active' : '' ?>">Libros</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>shop/whoami" class="nav-link <?= (isset($data['active']) && $data['active']=='whoami') ? 'active' : '' ?>">Quienes somos</a>
+                    <a href="<?= ROOT ?>shop/whoami" class="nav-link text-light <?= (isset($data['active']) && $data['active']=='whoami') ? 'active' : '' ?>">Quienes somos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>shop/contact" class="nav-link <?= (isset($data['active']) && $data['active']=='contact') ? 'active' : '' ?>">Contacto</a>
+                    <a href="<?= ROOT ?>shop/contact" class="nav-link text-light <?= (isset($data['active']) && $data['active']=='contact') ? 'active' : '' ?>">Contacto</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right"><!--Añadimos por aqui el buscador-->
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>shop/logout" class="nav-link">Salir</a>
+                    <form action="<?= ROOT ?>search/products" class="d-flex" method="POST">
+                        <input type="text" name="search" id="search" class="form-control me-2"
+                            size="20" placeholder="Busqueda..." required
+                        >
+                        <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= ROOT ?>shop/logout" class="nav-link text-light me-2 ms-2"">Salir</a>
                 </li>
             </ul>
         <?php endif; ?>
         <?php if(isset($data['admin']) && $data['admin']): ?>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>adminuser" class="nav-link">Usuarios</a>
+                    <a href="<?= ROOT ?>adminuser" class="nav-link text-light">Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>adminproduct" class="nav-link">Productos</a>
+                    <a href="<?= ROOT ?>adminproduct" class="nav-link text-light">Productos</a>
                 </li>
             </ul>
         <?php endif; ?>
