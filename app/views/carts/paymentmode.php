@@ -1,25 +1,45 @@
-<?php include_once dirname(__DIR__) . ROOT . 'header.php'?>
-
-<div class="card" id="container"><!--GEnerame un carrito o una tienda sin necesidad de haber iniciado sesion. Solo para pagar-->
+<?php include_once(VIEWS . 'header.php') ?>
+<div class="card" id="container">
     <nav aria-label="breadcrumb">
-        <ol>
-            <li class="breadcrumb"><a href="#">Iniciar sesion</a></li>
-            <li class="breadcrumb">DAtos de envio</li>
-            <li class="breadcrumb"><a href="#"></a>Forma de pago</li>
-            <li class="breadcrumb"><a href="#"></a>Verifica los datos</li>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Iniciar sesion</a></li>
+            <li class="breadcrumb-item"><a href="#">DAtos de envio</a></li>
+            <li class="breadcrumb-item"><a href="#"></a>Forma de pago</li>
+            <li class="breadcrumb-item"><a href="#">Verifica los datos</a></li>
         </ol>
     </nav>
-    <div class="card-header">
 <!--cabecera-->
-    <!--cuerpo-->
+    <div class="card-header">
+        <h1><?= $data['titulo'] ?></h1>
+        <p>Por favor, elija la forma de pago</p>
     </div>
-
-
-
-
-
-
-
-
-<?php include_once dirname(__DIR__) . ROOT . 'footer.php'?>
-
+<!--cuerpo-->
+    <div class="card-body">
+        <form action="<?= ROOT ?>cart/verify/" method="POST">
+            <div class="form-group text-left">
+                <div class="radio">
+                    <label><input type="radio" name="payment" value="cc1"> Tarjeta de crédito MasterCard</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="payment" value="cc2"> Tarjeta de crédito Visa</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="payment" value="dc"> Tarjeta de débito</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="payment" value="cash"> Efectivo</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="payment" value="paypal"> Paypal</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="payment" value="bitcoins"> Bitcoins</label>
+                </div>
+            </div>
+            <div class="form-group text-left">
+                <input type="submit" value="Enviar datos" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+</div>
+<?php include_once(VIEWS . 'footer.php') ?>

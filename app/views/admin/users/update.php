@@ -4,7 +4,7 @@
         <h1 class="text-center">Modificacion/edicion administracion</h1>
     </div>
     <div class="card-body">
-        <form action="<?= ROOT ?>adminUser/update/"<?= $data['data']->id ?>" method="POST">
+        <form action="<?= ROOT ?>adminUser/update/<?= $data['data']->id ?>" method="POST">
             <div class="form-group text-left">
                 <label for="name">Usuario:</label>
                 <input type="text" name="name" class="form-control"

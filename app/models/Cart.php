@@ -22,11 +22,6 @@ class Cart
         return $query->rowCount();
     }
 
-    public function index()
-    {
-
-    }
-
     public function addProduct($product_id, $user_id)
     {
         $sql = 'SELECT * FROM products WHERE id=:id';
@@ -83,7 +78,7 @@ class Cart
             ':quantity' => $quantity,
         ];
 
-        return $query->execute([$params]);
+        return $query->execute($params);
     }
     public function delete($product, $user)
     {

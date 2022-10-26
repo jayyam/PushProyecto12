@@ -25,6 +25,10 @@ class CartController extends Controller
                 'data' => $cart,
                 'errors' => $errors,
             ];
+            $this->view('carts/index', $data);
+
+        } else {
+            header('location:' . ROOT);
         }
     }
 
@@ -88,18 +92,17 @@ class CartController extends Controller
                 'menu' => true,
                 'data' => $user,
             ];
-
-            $this->view('carts/checkout', $data);
+            $this->view('carts/address', $data);
         }
         else
         {
             $data = [
                 'titulo' => 'Carrito | checkout',
                 'subtitle' => 'Checkout | iniciar sesion',
-                'menu' => true,
+                'menu' => true
             ];
 
-            $this->view('cart/checkout', $data);
+            $this->view('carts/checkout', $data);
         }
     }
     public function paymentmode()//solo se llega aqui por $_post por lo tanto hay que validar los datos del formulario checkout.
@@ -122,11 +125,12 @@ class CartController extends Controller
         $payment =$_POST['payment'] ?? '';
 
         $data =[
-            'titulo' => 'Vrificar los datos',
+            'titulo' => 'CArrito | Vrificar los datos',
             'menu' => true,
-            'payment'
-            'user' =>
-            'data' =>
+            'payment' => $payment,
+            'user' => $user,
+            'data' => $cart,
         ];
+        $this->view('carts/verify', $data);
     }
 }

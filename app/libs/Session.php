@@ -59,7 +59,7 @@ class Session
 
         $sql = 'SELECT sum(p.price *c.quantity)- sum(c.discount)+sum(c.send) as total 
                 FROM cart as c, products as p 
-                WHERE c.user_id=:user_id AND c.product_id=:p.id AND C.STATE=0';
+                WHERE c.user_id=:user_id AND c.product_id=:p.id AND c.state=0';
 
         $query = $db->prepare($sql);
         $query->execute([':user_id' => $this->getUserId()]);

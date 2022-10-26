@@ -349,7 +349,7 @@ class AdminProductController extends Controller
 
             if(emty($errors))
             {
-                header('location'.ROOT.'AdminProduct');
+                header('location:'.ROOT.'AdminProduct');
             }
 
         }

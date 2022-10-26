@@ -22,6 +22,7 @@
     <a href="<?= ROOT ?>shop" class="navbar-brand ms-3">Tienda</a>
     <div class="navbar collapse navbar-collapse p-0" id="menu">
         <!--        Enlaces del menú para todos-->
+        <div class="d-flex justify-content-start">
         <?php if($data['menu']): ?>
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
@@ -37,6 +38,8 @@
                     <a href="<?= ROOT ?>shop/contact" class="nav-link text-light <?= (isset($data['active']) && $data['active']=='contact') ? 'active' : '' ?>">Contacto</a>
                 </li>
             </ul>
+        </div>
+            <div class="d-flex justify-content-end">
             <ul class="nav navbar-nav navbar-right"><!--Añadimos por aqui el buscador-->
                 <?php if(isset($_SESSION['cartTotal']) && $_SESSION['cartTotal'] > 0): ?>
                     <li class="nav-item">
@@ -57,6 +60,7 @@
                     <a href="<?= ROOT ?>shop/logout" class="nav-link text-light me-2 ms-2"">Salir</a>
                 </li>
             </ul>
+            </div>
         <?php endif; ?>
         <?php if(isset($data['admin']) && $data['admin']): ?>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">

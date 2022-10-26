@@ -1,22 +1,23 @@
-<?php include_once dirname(__DIR__) . ROOT . 'header.php'?>
-
+<?php include_once (VIEWS .'header.php')?>
 <?php $verify = false; $subtotal =0; $send = 0; $discount =0; $user_id =$data['user_id'] ?>
-<h2c class="text-center" >Carrito de la compra</h2c>
-
+<h2 class="text-center" >Carrito de la compra</h2>
 <form action="<?= ROOT?>cart/update" method="POST">
-    <table>
+    <table class="table table-stripped" width="100%">
         <tr>
-            <th width="">producto</th>
-            <th width="">descripcion</th>
-            <th width="">CAnt.</th>
-            <th width="">Precio</th>
-            <th width="">Subtotal</th>
-            <th width="">&nbsp</th>
-            <th width="">Borrar</th>
+            <th width="12%">producto</th>
+            <th width="58%">descripcion</th>
+            <th width="1.8%">CAnt.</th>
+            <th width="10.12%">Precio</th>
+            <th width="10.12%">Subtotal</th>
+            <th width="1%">&nbsp;</th>
+            <th width="6.5%">Borrar</th>
         </tr>
         <?php foreach ($data['data'] as $key => $value): ?>
+    </table>
+    <hr>
+    <table width="100%" class="text-end">
         <tr>
-            <td><img src="<?= ROOT?>img/"> </td>
+            <td><img src="<?= ROOT ?>img/<?= $value->image ?>" width="105" alt="<?= $value->name ?>"></td>
 
             <td><br><?= $value->name?></br> <?= substr(html_entity_decode($value->description), 0, 200)?> </td>
 
@@ -88,7 +89,6 @@
                         </td>
                     <?php endif; ?>
                 </tr>
-            </table>
     </table>
 </form>
 <?php include_once dirname(__DIR__) . ROOT . 'footer.php'?>

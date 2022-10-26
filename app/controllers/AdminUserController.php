@@ -34,7 +34,7 @@ class AdminUserController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' )
         {
-            print 'procesando datos';
+            //print 'procesando datos';
             $errors = [];
             $name = $_POST['name'] ?? '';
             $email = $_POST['email'] ?? '';
@@ -171,7 +171,7 @@ $this->view('mensaje', $data);
         $this->view('admin/users/update', $data);
     }
 
-    public function delete()
+    public function delete($id)
     {
         //print'eliminacion de usuario';
 
@@ -189,7 +189,8 @@ $this->view('mensaje', $data);
         $user =$this->model->getUserById($id);//si vengo via get (ELSES)
         $status = $this->model->getConfig('adminStatus');
 
-        $data = ['titulo' => 'Admninistracion  de usuarios - Eliminacion',
+        $data = [
+	    'titulo' => 'Admninistracion  de usuarios - Eliminacion',
             'menu' => false,
             'admin' => true,
             'data' => $user,

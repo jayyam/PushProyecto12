@@ -53,7 +53,7 @@ class ShopController extends Controller
             'back' => $back,
             'errors' => [],
             'data' => $product,
-            'user_id' => getUserId,
+            'user_id' => $session->getUserId(),
         ];
 
         $this->view('shop/show', $data);

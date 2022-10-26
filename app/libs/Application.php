@@ -29,8 +29,8 @@ class Application
                     $this->urlController->{$this->urlAction}();
                 }
             } else {
-                if (strlen($this->urlAction
-                    ) == 0) {
+                if (strlen($this->urlAction) == 0)
+		 {
                     $this->urlController->index();
                 } else {
                     header('HTTP/1.0 404 Not Found');
@@ -64,4 +64,3 @@ class Application
     }
 
 }
-?>

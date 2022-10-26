@@ -19,7 +19,7 @@ class AdminUser
             $password = hash_hmac('sha512', $data['password'], ENCRIPTKEY);
 
             //defino sentencia sql
-            $sql = 'INSERT INTO admins(name, email, password, status, deleted, login_at, created_at, updated_at, deleted_at 
+            $sql = 'INSERT INTO admins(name, email, password, status, deleted, login_at, created_at, updated_at, deleted_at) 
                 VALUES(:name, :email, :password, :status, :deleted, :login_at, :created_at, :updated_at, :deleted_at)';
 
             $params = [
@@ -81,8 +81,8 @@ class AdminUser
     {
         $errors = [];
 
-        if ($user['password'])
-        {
+        if ($user['password']){
+
             $sql = 'UPDATE admins SET name=:name, emai=:email, password=:password, status=:status, update_at=:update_at
  		    WHERE id=:id';
             $pass =hash_hmac('sha512', $user['password'], ENCRIPTKEY);

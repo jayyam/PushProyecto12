@@ -93,7 +93,8 @@ class LoginController extends Controller
                 }
             }
             if (count($errors) > 0) {
-                $data = ['titulo' => 'Olvido de la contraseña',
+                $data = [
+		    'titulo' => 'Olvido de la contraseña',
                     'menu' => false,
                     'errors' => $errors,
                     'subtitle' => 'Olvidaste la contraseña?'];

@@ -18,9 +18,9 @@ class Admin
 
         $sql = 'SELECT * FROM admins WHERE email=:email';
         $query = $this->db->prepare($sql);
-        $query->bindParam(':email', $email, PDO::PARAM_STR);
+        $query->bindParam(':email',$data['user'], PDO::PARAM_STR);
         $query->execute();
-        $admins = $query->fetch(PDO::FETCH_OBJ);
+        $admins = $query->fetchAll(PDO::FETCH_OBJ);
 
 
 
