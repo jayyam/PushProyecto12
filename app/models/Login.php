@@ -106,9 +106,11 @@ class Login
 
         $pass = hash_hmac('sha512', $password, ENCRIPTKEY);
 
-        if ( ! $user ){
+        if ( ! $user )
+        {
             array_push($errors, 'Usuario no existe');
-}elseif ($user->password != $pass)
+        }
+        elseif ($user->password != $pass)
         {
             array_push($errors, 'contraseña incorrecta');
         }

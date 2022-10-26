@@ -1,0 +1,26 @@
+https://getcomposer.org/ 
+
+sirve para generar arbol de dependencias/ conjunto de librerias basicas de laravel
+
+librerias para muchos tipos diferentes de funciones. han de ser de las mas descargadas. constantemente utilizadas. recientemente actualizadas. estrellas.
+
+lugares para librerias de laravel packagist, packalyst, github, "spatie"(famosilla)
+
+camnbiar la version de php de 8.1 a 7.4 y rebuild de container
+
+
+En .env en linea 36 laradockies COMPOSE_PROJECT_NAME cambiar nombre para tener 2 carpetas de laradock levantando dos grupos de containers  con nombres diferentes
+
+cambiar archivo de host como en proyecto12
+
+copiar proyecto12 a proyecto13 y cambiar las lineas
+
+comando desde var/www del workspace donde esta el composer instalado ejecutar = compose create-project --prefer-dist laravel/laravel proyecto13 "5.5.*" para crear proyecto de laravel 
+
+docker-compose build php-fpm workspace
+
+
+
+
+
+

@@ -9,9 +9,9 @@ class Cart
         $this->db = Mysqldb::getInstance()->getDatabase();
     }
 
-    public function verifyProduct($product_id, $user_id)
+    public function verifyProduct($product_id, $user_id, $state)
     {
-        $sql = 'SELECT * FROM carts WHERE product_id =:product_id AND user_id =:user_id';
+        $sql = 'SELECT * FROM carts WHERE product_id =:product_id AND user_id =:user_id AND state=:0';
 
         $query = $this->db->prepare($sql);
         $params = [
@@ -60,7 +60,7 @@ class Cart
                        p.name as name  
                  FROM cart as c, products as p 
                  WHERE c.user_id=:user_id AND state=0 AND c.product_id=:p.id';
-
+        //CONSULTA TIPO JOIN
         $query = $this->db->prepare($sql);
         $query->execute([':user_id'=>$user_id]);
 
@@ -91,4 +91,16 @@ class Cart
         ];
         return $query->execute($params);
     }
+    public function closeCart($id, $state)
+    {
+        $sql = 'UPDATE carts SET state=:state WHERE user_id=:user_id AND state=:0';
+        $query = $this->db->prepare($sql);
+        $params = [
+            ':user_id' => $id,
+            ':state' => $state,
+        ];
+
+        return $query->execute($params);
+    }
 }
+//añadir fecha de compra de producto en vez de que incluya la fecha de creacion de producto

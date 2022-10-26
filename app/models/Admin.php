@@ -13,7 +13,6 @@ class Admin
     {
         $errors = [];
 
-
         $password =hash_hmac('sha512', $data['password'], key: 'ENCRIPTKEY');
 
         $sql = 'SELECT * FROM admins WHERE email=:email';
@@ -29,7 +28,7 @@ class Admin
             array_push($errors, 'Usuario no existe en nuestros registros1');
 
         }
-        elseif (count($admins) >1)
+        elseif (count($admins) > 1)
         {
             array_push($errors, 'Corrreo duplicado');
         }
@@ -61,5 +60,6 @@ class Admin
 
         }
         return $errors;
+
     }
 }

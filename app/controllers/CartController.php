@@ -133,4 +133,39 @@ class CartController extends Controller
         ];
         $this->view('carts/verify', $data);
     }
+    public function thanks()
+    {
+        $session = new Session();
+        $user = $session->getUser();
+
+        if ($this->model->closeCart($user->id, 1))//estado del carrito a 1. no es necesario ya que no hay stock
+        {
+            $data = [
+                'titulo' => 'CArrito | Agradecimientos',
+                'data' => $user,
+                'menu' => true,
+
+            ];
+            $this->view('carts/thanks', $data);
+        }
+        else
+        {
+            $data = [
+                'titulo' => 'Error actualizando carrito',
+                'menu' => false,
+                'subtitle' => 'error al actualizar los productos de carrito',
+                'text' => 'error al actualizar el carrito. priebe mas tarde o comuniquese con nuestro soporte',
+                'color' => 'alert-danger',
+                'url'=> 'login',
+                'colorButton' => 'alert-danger',
+                'textButton' => 'Regresar',
+                'data' => $user,
+
+
+            ];
+            $this->view('carts/thanks', $data);
+        }
+
+
+    }
 }

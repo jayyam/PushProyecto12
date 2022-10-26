@@ -78,10 +78,10 @@ class AdminUserController extends Controller
                         'color' => 'alert-danger',
                         'url' => 'adminUser',
                         'colorButton' => 'btn-danger',
-                        'textButton' => 'Volver',];
-$this->view('mensaje', $data);
+                        'textButton' => 'Volver',
+                        ];
+                        $this->view('mensaje', $data);
                 }
-                
             }
             else
             {
@@ -128,7 +128,7 @@ $this->view('mensaje', $data);
             if ($name=='') {
                 array_push($errors, 'El nombre de usuario es requerido');
             }
-            if ($emai=='') {
+            if ($email=='') {
                 array_push($errors, 'El correo electrónico de usuario es requerido');
             }
             if ($status=='') {
@@ -201,5 +201,19 @@ $this->view('mensaje', $data);
         $this->view('admin/users/delete', $data);
 
     }
+    /**
+     * generar informe de ventas en la parte adminstrativa
+     *
+     * fecha
+     *
+     * generar entrada en el menu administracion que lleve a ventas
+     *
+     * una vez hecho el ventas controller metodo sale para obtener todos los productos estado 1 (comprados por usuario)
+     *
+     * generar tabla de todo lo anterior en funcion de la fecha, total, subtotal, descuento, numero de productos comprado
+     *
+     * ha de haber dos precios. uno de producto y otro asociado a compras
+     *
+    */
 
 }
