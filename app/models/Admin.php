@@ -46,11 +46,11 @@ class Admin
         }
         else
         {
-            $sql2 = 'UPDATE admins SET login_at=:login WHERE id:id';
+            $sql2 = 'UPDATE admins SET login_at=:login_at WHERE id=:id';
             $query2 = $this->db->prepare($sql2);
-
+            //var_dump(date('Y-m-d H:i:s'));
             $params = [
-                ':login' => date('Y-m-d H:i:s'),
+                ':login_at' => date('Y-m-d H:i:s'),
                 ':id' => $admins[0]->id,
             ];
             if ( ! $query2->execute($params))
