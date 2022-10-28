@@ -14,7 +14,7 @@ class Admin
         $errors = [];
 
         $password =hash_hmac('sha512', $data['password'], key: 'ENCRIPTKEY');
-
+        //var_dump($password);
         $sql = 'SELECT * FROM admins WHERE email=:email';
         $query = $this->db->prepare($sql);
         $query->bindParam(':email',$data['user'], PDO::PARAM_STR);

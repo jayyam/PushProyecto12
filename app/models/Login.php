@@ -105,7 +105,7 @@ class Login
         //var_dump(variables para ver lo que hay);
 
         $pass = hash_hmac('sha512', $password, ENCRIPTKEY);
-
+        var_dump($pass);
         if ( ! $user )
         {
             array_push($errors, 'Usuario no existe');

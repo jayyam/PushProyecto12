@@ -13,7 +13,8 @@ class AdminProductController extends Controller
     {
         $session = new SessionAdmin();
 
-        if ($session->getLogin()) {
+        if ($session->getLogin())
+        {
 
             $products = $this->model->getProducts();
             $type = $this->model->getConfig('productType');
@@ -28,7 +29,9 @@ class AdminProductController extends Controller
 
             $this->view('admin/products/index', $data);
 
-        } else {
+        }
+        else
+        {
             header('location:' . ROOT . 'admin');
         }
     }
@@ -41,7 +44,8 @@ class AdminProductController extends Controller
         $statusConfig = $this->model->getConfig('productStatus');
         $catalogue = $this->model->getCatalogue();
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
 
             // VALIDANDO LA INFORMACION -- FUNCIONES A USAR
 
@@ -128,64 +132,63 @@ class AdminProductController extends Controller
             if ($image) {
                 if (Validate::imageFile($_FILES['image']['tmp_name'])) {
                     $image = strtolower($image);
-                
-                if (is_uploaded_file($_FILES['image']['tmp_name'])) {
-                    move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $image);
-                    Validate::resizeImage($image, newWidth: 240);
-                } else {
-                    array_push($errors, 'Error al subir el archivo de imagen');
-                }
-            }
-            }else {
-                    array_push($errors, 'Imagen no recibida');
-                }
 
-                //CREANDO ARRAY DE DATOS
-
-                $dataForm = [
-                    'type' => $type,
-                    'name' => $name,
-                    'description' => $description,
-                    'author' => $author,
-                    'publisher' => $publisher,
-                    'people' => $people,
-                    'objetives' => $objetives,
-                    'necesites' => $necesites,
-                    'price' => $price,
-                    'discount' => $discount,
-                    'send' => $send,
-                    'pages' => $pages,
-                    'published' => $published,
-                    'image' => $image,
-                    'mostSold' => $mostSold,
-                    'new' => $new,
-                    'relation1' => $relation1,
-                    'relation2' => $relation2,
-                    'relation3' => $relation3,
-                    'status' => $status,
-                ];
-
-                if (!$errors) {
-                    if ($this->model->createProduct($dataForm)) {
-                        header('location:' . ROOT . 'AdminProduct');
+                    if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+                        move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $image);
+                        Validate::resizeImage($image, newWidth: 240);
+                    } else {
+                        array_push($errors, 'Error al subir el archivo de imagen');
                     }
-                    array_push($errors, 'Se ha producido un error en la inserción en la BD');
                 }
+            } else {
+                array_push($errors, 'Imagen no recibida');
             }
-            $data = [
-                'titulo' => 'Administración de Productos - Alta',
-                'menu' => false,
-                'admin' => true,
-                'type' => $typeConfig,
-                'status' => $statusConfig,
-                'catalogue' => $catalogue,
-                'errors' => $errors,
-                'data' => $dataForm,
+
+            //CREANDO ARRAY DE DATOS
+
+            $dataForm = [
+                'type' => $type,
+                'name' => $name,
+                'description' => $description,
+                'author' => $author,
+                'publisher' => $publisher,
+                'people' => $people,
+                'objetives' => $objetives,
+                'necesites' => $necesites,
+                'price' => $price,
+                'discount' => $discount,
+                'send' => $send,
+                'pages' => $pages,
+                'published' => $published,
+                'image' => $image,
+                'mostSold' => $mostSold,
+                'new' => $new,
+                'relation1' => $relation1,
+                'relation2' => $relation2,
+                'relation3' => $relation3,
+                'status' => $status,
             ];
 
-            $this->view('admin/products/create', $data);
+            if (!$errors) {
+                if ($this->model->createProduct($dataForm)) {
+                    header('location:' . ROOT . 'AdminProduct');
+                }
+                array_push($errors, 'Se ha producido un error en la inserción en la BD');
+            }
         }
+        $data = [
+            'titulo' => 'Administración de Productos - Alta',
+            'menu' => false,
+            'admin' => true,
+            'type' => $typeConfig,
+            'status' => $statusConfig,
+            'catalogue' => $catalogue,
+            'errors' => $errors,
+            'data' => $dataForm,
+        ];
+        $this->view('admin/products/create', $data);
     }
+
     public function update($id)
     {
         $errors = [];
@@ -281,14 +284,14 @@ class AdminProductController extends Controller
             if ($image) {
                 if (Validate::imageFile($_FILES['image']['tmp_name'])) {
                     $image = strtolower($image);
-                
-                if (is_uploaded_file($_FILES['image']['tmp_name'])) {
-                    move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $image);
-                    Validate::resizeImage($image, newWidth: 240);
-                } else {
-                    array_push($errors, 'Error al subir el archivo de imagen');
+
+                    if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+                        move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $image);
+                        Validate::resizeImage($image, newWidth: 240);
+                    } else {
+                        array_push($errors, 'Error al subir el archivo de imagen');
+                    }
                 }
-	}
                 //CREANDO ARRAY DE DATOS
 
                 $dataForm = [
@@ -316,7 +319,7 @@ class AdminProductController extends Controller
                 ];
 
                 if (!$errors) {
-                    if (count($this->model->updateProduct($dataForm)) ==0 ) {
+                    if (count($this->model->updateProduct($dataForm)) == 0) {
                         header('location:' . ROOT . 'AdminProduct');
                     }
                     array_push($errors, 'Se ha producido un error en la inserción en la BD');
@@ -337,31 +340,31 @@ class AdminProductController extends Controller
             ];
 
             $this->view('admin/products/update', $data);
-    }
-
-    public function delete($id)
-    {
-        $errors = [] ;
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
-            $errors = $this->model->delete($id);
-
-            if(emty($errors))
-            {
-                header('location:'.ROOT.'AdminProduct');
-            }
-
         }
-        $product = $this->model->getProductById($id);
-        $typeConfig = $this->model->getConfig('productType');
 
-        $data = [
-            'titulo' => 'Administración de Productos - Eliminación',
-            'menu' => false,
-            'admin' => true,
-            'type' => $typeConfig,
-            'product' => $product,
-        ];
+        public
+        function delete($id)
+        {
+            $errors = [];
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $errors = $this->model->delete($id);
+
+                if (emty($errors)) {
+                    header('location:' . ROOT . 'AdminProduct');
+                }
+
+            }
+            $product = $this->model->getProductById($id);
+            $typeConfig = $this->model->getConfig('productType');
+
+            $data = [
+                'titulo' => 'Administración de Productos - Eliminación',
+                'menu' => false,
+                'admin' => true,
+                'type' => $typeConfig,
+                'product' => $product,
+            ];
+        }
     }
 }
