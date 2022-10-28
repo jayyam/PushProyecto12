@@ -1,6 +1,6 @@
 <?php
 
-class Session
+class SessionAdmin
 {
     private $login = false;
     private $user;
