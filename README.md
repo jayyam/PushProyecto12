@@ -38,8 +38,6 @@
 #         Reinicia los containers: sudo docker-compose stop 
 #
 # Step-7: Reiniciando los containers: sudo docker-compose up -d nginx mysql phpmyadmin workspace
-#         En tu navegador ejecuta exactamente http://proyecto12.local (https:// secure conection no)
-#         Si se ve lo que se ve, es cuanto...
+#         En tu navegador ejecuta exactamente http://proyecto12.local (https:// secure conection no tira)
 #
-# Step-7: (En linux) edita con permisos el archivo /etc/hosts y agrega en el apartado de tus host addresses:
-#         127.0.0.1       proyecto12.local 
+#         Si se ve lo que se ve, es cuanto...
