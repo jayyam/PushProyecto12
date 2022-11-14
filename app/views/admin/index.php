@@ -26,3 +26,8 @@
     </div>
 </div>
 <?php include_once dirname(__DIR__) . ROOT . 'footer.php'?>
+<!--<div class="card-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="<?= ROOT ?>login/registro" class="btn btn-info">Nuevo usuario</a>
+            </div>-->

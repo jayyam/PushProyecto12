@@ -83,7 +83,7 @@ class AdminUser
 
         if ($user['password']){
 
-            $sql = 'UPDATE admins SET name=:name, emai=:email, password=:password, status=:status, update_at=:update_at
+            $sql = 'UPDATE admins SET name=:name, email=:email, password=:password, status=:status, update_at=:update_at
  		    WHERE id=:id';
             $pass =hash_hmac('sha512', $user['password'], ENCRIPTKEY);
 

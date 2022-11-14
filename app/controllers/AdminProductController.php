@@ -341,7 +341,7 @@ class AdminProductController extends Controller
 
             $this->view('admin/products/update', $data);
         }
-
+    }
         public
         function delete($id)
         {
@@ -350,7 +350,7 @@ class AdminProductController extends Controller
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $errors = $this->model->delete($id);
 
-                if (emty($errors)) {
+                if (empty($errors)) {
                     header('location:' . ROOT . 'AdminProduct');
                 }
 
@@ -366,5 +366,4 @@ class AdminProductController extends Controller
                 'product' => $product,
             ];
         }
-    }
 }
