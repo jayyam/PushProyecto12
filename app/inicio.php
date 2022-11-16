@@ -3,11 +3,11 @@
 ini_set('display_errors', 1);
 
 // Constantes iniciales
-define('ROOT', DIRECTORY_SEPARATOR);
-define('APP', ROOT . 'app' . DIRECTORY_SEPARATOR);
-define('URL', '/var/www/proyecto12/');
-define('VIEWS', URL.APP.'views/');
-define('ENCRIPTKEY', 'elperrodesanroque');
+define('ROOT', DIRECTORY_SEPARATOR); // slash =(/)= raiz
+define('APP', ROOT . 'app' . DIRECTORY_SEPARATOR); // slash/carpetaDeAplicacion/slash
+define('URL', '/var/www/proyecto12/'); //sin usar
+define('VIEWS', URL.APP.'views/'); //sin usar
+define('ENCRIPTKEY', 'elperrodesanroque'); //constante que contiene la clave de encriptacion del password
 
 
 //carga las clases iniciales

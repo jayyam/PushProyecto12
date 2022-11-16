@@ -13,15 +13,15 @@ class Admin
     {
         $errors = [];
 
-        $password =hash_hmac('sha512', $data['password'], key: 'ENCRIPTKEY');
-        //var_dump($password);
+        $password =hash_hmac('sha512', $data['password'], key:"ENCRIPTKEY" );
         $sql = 'SELECT * FROM admins WHERE email=:email';
         $query = $this->db->prepare($sql);
         $query->bindParam(':email',$data['user'], PDO::PARAM_STR);
         $query->execute();
         $admins = $query->fetchAll(PDO::FETCH_OBJ);
 
-
+        //$bugegu=hash_init('sha512',  0,  "ENCRIPTKEY", ['a69f16dbd2c154898e4bf453fd0694a11d429bc86972a26b521ffd9c2c84b9ca6253e0b10ae26c39d0d7b71f0eb973758f6b43eba1949fd9c4faaeeb18dd5b74']);
+        //var_dump($bugegu);
 
         if (! $admins)
         {

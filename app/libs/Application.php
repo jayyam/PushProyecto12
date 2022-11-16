@@ -33,7 +33,7 @@ class Application
 		 {
                     $this->urlController->index();
                 } else {
-                    header('HTTP/1.0 404 Not Found');
+                    header('HTTP/1.0 404 Not Found Pero Desde Aqui ');
 
                     // Tratamos el error producido cuando creemos el controlador de Error
                 }

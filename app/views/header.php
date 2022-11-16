@@ -24,6 +24,7 @@
         <!--        Enlaces del menú para todos-->
         <div class="d-flex justify-content-start">
         <?php if($data['menu']): ?>
+            <!--            Ubicación del menú para usuarios logueados-->
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a href="<?= ROOT ?>courses" class="nav-link text-light <?= (isset($data['active']) && $data['active']=='courses') ? 'active' : '' ?>">Cursos</a>

@@ -26,7 +26,7 @@ class Login
         if ( ! $this->existsEmail($data['email'])) {
             // Crear el usuario
 
-            $password = hash_hmac('sha512', $data['password'], ENCRIPTKEY);
+            $password = hash_hmac('sha512', $data['password'], 'ENCRIPTKEY');
 
             $sql = 'INSERT INTO users(first_name, last_name_1, last_name_2, email, 
                   address, city, state, zipcode, country, password) 
@@ -66,7 +66,7 @@ class Login
     }
 
     public function sendEmail($email)
-    {
+    {   //Enviado email a . $email
         $user = $this->getUserByEmail($email);
 
         $fullName = $user->first_name.' '.
@@ -105,7 +105,7 @@ class Login
         //var_dump(variables para ver lo que hay);
 
         $pass = hash_hmac('sha512', $password, ENCRIPTKEY);
-        var_dump($pass);
+        //var_dump($pass);
         if ( ! $user )
         {
             array_push($errors, 'Usuario no existe');

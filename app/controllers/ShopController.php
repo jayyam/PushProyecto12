@@ -19,7 +19,7 @@ class ShopController extends Controller
 
             $data = [
                 'titulo' => 'Bienvenid@ a nuestra tienda',
-                'menu' => true,
+                'menu' => true,//false?
                 'subtitle' => 'Artículos mas vendidos',
                 'data' => $mostSold,
                 'subtitle2' => 'Artículos nuevos',

@@ -105,13 +105,13 @@ class LoginController extends Controller
     }
 
     public function registro()
-    {
+    {//Pasamos a dar de alta al usuario en la BD
         $errors = [];
         $dataForm = [];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Procesamos la información recibida del formulario
-            $firstName = $_POST['first_name'] ?? '';
+            $firstName = $_POST['first_name'] ?? '';//Si viene lleno el campo o viene una cadena vacia
             $lastName1 = $_POST['last_name_1'] ?? '';
             $lastName2 = $_POST['last_name_2'] ?? '';
             $email = $_POST['email'] ?? '';
@@ -137,7 +137,7 @@ class LoginController extends Controller
             ];
 
             if ($firstName == '') {
-                array_push($errors, 'El nombre es requerido');
+                array_push($errors, 'El nombre es requerido');//si viene la cadena vacia
             }
             if ($lastName1 == '') {
                 array_push($errors, 'El primer apellido es requerido');
@@ -174,8 +174,10 @@ class LoginController extends Controller
             }
 
             if (count($errors) == 0) {
-
+            //si el numero de errores contado es "0" (no vienen errores del formulario)
+                var_dump($errors);
                 if ($this->model->createUser($dataForm)) {
+                    //insertando Registro  correctamente
                     $data = [
                         'titulo' => 'Bienvenido',
                         'menu' => false,
@@ -188,7 +190,7 @@ class LoginController extends Controller
                         'textButton' => 'Acceder',
                     ];
                     $this->view('mensaje', $data);
-                } else {
+                } else {//No se pudo insertar
                     $data = [
                         'titulo' => 'Error',
                         'menu' => false,
@@ -327,7 +329,7 @@ class LoginController extends Controller
                 'remember' => $remember,
             ];
 
-            if ( ! $errors ) {
+            if ( ! $errors ) {//si no hay errores, entrando a la base
                 $data = $this->model->getUserByEmail($user);
                 $session = new Session();
                 $session->login($data);
@@ -339,7 +341,7 @@ class LoginController extends Controller
                     'menu'   => false,
                     'errors' => $errors,
                     'data' => $dataForm,
-                //var_dump($errors);
+                    //var_dump($errors);
                 ];
                 $this->view('login', $data);
             }
@@ -357,18 +359,22 @@ class LoginController extends Controller
 /** Pruebas
  * public function metodoVariable()
  * {
- * if (func_num_args()>0)
- * {
- * for ($i=0; $i<func_num_args();$i++)
- * {
- * print func_num_args($i);
+ *      if (func_num_args()>0)
+ *      {
+ *          for ($i=0; $i<func_num_args();$i++)
+ *          {
+ *              print func_num_args($i);
+ *          }
+ *      }
+ *      else
+ *      {
+ *          print 'No hay argumentos.<br>';
+ *      }
  * }
- * }
- * else{print 'No hay argumentos.<br>';}
- * }
+ *
  * public function metodoFijo($arg1 = "Uno", $arg2 ="Dos", $arg3='Tres')
  * {
- * print $arg1.'<br>';
- * print $arg2.'<br>';
- * print $arg3.'<br>';
+ *      print $arg1.'<br>';
+ *      print $arg2.'<br>';
+ *      print $arg3.'<br>';
  * }*/
