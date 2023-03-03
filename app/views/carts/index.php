@@ -45,7 +45,7 @@
         <input type ="hidden" name="rows" value="<?=count($data['data'])?>">
         <input type ="hidden" name="user_id" value="<?=count($data['user_id'])?>">
         <hr>
-            <table>
+    <table width="100%" class="text-end">
                 <tr>
                     <td width="79.25%"></td>
                     <td width="11.55%">Subtotal:</td>
@@ -72,8 +72,8 @@
                             Seguir comprando
                         </a>
                     </td>
-                    <td
-                            input type="submit" class="btn btn-success" role="button" value="Recalcular">
+            <td>
+                <input type="submit" class="btn btn-success" role="button" value="Recalcular">
                     </td>
                     <?php if($verify): ?>
                         <td>

@@ -169,7 +169,6 @@
     </div>
     <div class="card-footer">
 
-    
 </div>
     <script>
         ClassicEditor

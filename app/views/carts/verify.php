@@ -1,9 +1,9 @@
 <?php include_once(VIEWS . 'header.php') ?>
 <div class="card" id="container">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb>
-            <li class="breadcrumb-item"><a href="#">Iniciar sesion</a></li>
-            <li class="breadcrumb-item"><a href="#">DAtos de envio</li>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Iniciar sesión</a></li>
+            <li class="breadcrumb-item"><a href="#">Datos de envío</a></li>
             <li class="breadcrumb-item"><a href="#">Forma de pago</a></li>
             <li class="breadcrumb-item">Verifica los datos</li>
         </ol>

@@ -175,7 +175,7 @@ class LoginController extends Controller
 
             if (count($errors) == 0) {
             //si el numero de errores contado es "0" (no vienen errores del formulario)
-                var_dump($errors);
+                //var_dump($errors);
                 if ($this->model->createUser($dataForm)) {
                     //insertando Registro  correctamente
                     $data = [

@@ -26,7 +26,7 @@ class Login
         if ( ! $this->existsEmail($data['email'])) {
             // Crear el usuario
 
-            $password = hash_hmac('sha512', $data['password'], 'ENCRIPTKEY');
+            $password = hash_hmac('sha512', $data['password'],ENCRIPTKEY);
 
             $sql = 'INSERT INTO users(first_name, last_name_1, last_name_2, email, 
                   address, city, state, zipcode, country, password) 

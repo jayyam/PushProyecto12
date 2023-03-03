@@ -6,6 +6,7 @@
             <li class="breadcrumb-item"><a href="#">DAtos de envio</a></li>
             <li class="breadcrumb-item"><a href="#"></a>Forma de pago</li>
             <li class="breadcrumb-item"><a href="#">Verifica los datos</a></li>
+            <li class="breadcrumb-item">Gracias</li>
         </ol>
     </nav>
     <!--cabecera-->

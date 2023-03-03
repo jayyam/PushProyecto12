@@ -66,7 +66,7 @@
         <?php if(isset($data['admin']) && $data['admin']): ?>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a href="<?= ROOT ?>adminuser" class="nav-link text-light">Usuarios</a>
+                    <a href="<?= ROOT ?>adminUser" class="nav-link text-light">Usuarios</a>
                 </li>
                 <li class="nav-item">
                     <a href="<?= ROOT ?>adminproduct" class="nav-link text-light">Productos</a>

@@ -1,6 +1,6 @@
 <?php include_once(VIEWS . 'header.php')?>
 <script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/classic/ckeditor.js"></script>
-<script> src ="<?= ROOT . 'js/adminCreateProduct.js'?>"></script>
+<script src="<?= ROOT . 'js/adminCreateProduct.js' ?>"></script>
 <div class="card p-4 bg-light">
     <div class="card-header">
         <h1 class="text-center">Alta de un producto</h1>
@@ -34,19 +34,19 @@
                     <label for="author">Autor:</label>
                     <input type="text" name="author" class="form-control"
                            placeholder="Escribe el autor del libro"
-                           value="<?= (isset($data['product']['author'])) ? $data['data']['author'] : '' ?>">
+                           value="<?= $data['product']->author ?? '' ?>">
                 </div>
                 <div class="form-group text-left">
                     <label for="publisher">Editorial:</label>
                     <input type="text" name="publisher" class="form-control"
                            placeholder="Escribe la editorial del libro"
-                           value="<?= (isset($data['product']['publisher'])) ? $data['data']['publisher'] : '' ?>"> <!-- ?? ''-->
+                           value="<?= $data['product']->publisher ?? '' ?>">
                 </div>
                 <div class="form-group text-left">
                     <label for="pages">Páginas:</label>
                     <input type="text" name="pages" class="form-control"
                            placeholder="Escribe el número de páginas del libro"
-                           value="<?= (isset($data['product']['pages'])) ? $data['data']['pages'] : '' ?>">
+                           value="<?= $data['product']->pages ?? '' ?>">
                 </div>
             </div>
             <div id="course">
@@ -54,26 +54,26 @@
                     <label for="people">Público objetivo:</label>
                     <input type="text" name="people" class="form-control"
                            placeholder="Escribe el público objetivo del curso"
-                           value="<?= (isset($data['product']['people'])) ? $data['product']->people : '' ?>">
+                           value="<?= $data['product']->people ?? '' ?>">
                 </div>
                 <div class="form-group text-left">
                     <label for="objetives">Objetivos:</label>
                     <input type="text" name="objetives" class="form-control"
                            placeholder="Escribe los objetivos del curso"
-                           value="<?= (isset($data['product']['objetives'])) ? $data['product']->objetives : '' ?>">
+                           value="<?= $data['product']->objetives ?? '' ?>">
                 </div>
                 <div class="form-group text-left">
                     <label for="necesites">Conocimientos necesarios previos:</label>
                     <input type="text" name="necesites" class="form-control"
                            placeholder="Escribe los conocimientos necesarios previos"
-                           value="<?= (isset($data['product']['necesites'])) ? $data['product']->necesites : '' ?>">
+                           value="<?= $data['product']->necesites ?? '' ?>">
                 </div>
             </div>
             <div class="form-group text-left">
                 <label for="price">Precio del producto:</label>
                 <input type="text" name="price" class="form-control" pattern="^(\d|-)?(\d|,)*\.?\d*$"
                        placeholder="Escribe el precio del producto sin comas ni símbolos" required
-                       value="<?= (isset($data['product']['price'])) ? $data['product']->price : '' ?>">
+                       value="<?= $data['product']->price ?? '' ?>">
             </div>
             <div class="form-group text-left">
                 <label for="discount">Descuento del producto:</label>
