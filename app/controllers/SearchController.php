@@ -13,7 +13,7 @@ class SearchController extends Controller
     {
         $search = $_POST['search'] ?? '';
 
-        if (!$search != '')
+        if ($search != '')
         {
             $dataSearch = $this->model->getProducts($search);
 

@@ -1,0 +1,63 @@
+Posibles preguntas de examen
+
+- Guardar el precio de la compra
+
+- No mostrar breadcrumbs si no esta logueado
+
+- admin debe tener su propio login(no debe tener carrito)
+
+- EL campo nombre debe ser requerido y no debe ser válido, con
+la contraseña.(strpost),(patrones)(strln->calcular la
+longitud de la cadena)
+
+- Solucionar que no sea necesario actualizar la imagen,no debe
+generar error si no hay imagen.
+else{ array_push($errors,'No he recibido la imagen');}
+
+- Se deberá crear un superadministrador , para el futuro.
+
+- El shop se mete a la sesión de admin es un error.
+
+- Hay un error en en la clase coursesController , en el método
+show se puede entrar sin loguearse.
+
+- En admin deberíamos tener una opción de formas de pago que tu
+podrás modificarlas y editarlas que será de forma dinámica
+donde se generará al usuario en un for each.A diferencia de
+tenerlo estático de payment mode desde la vista del cliente.
+Debe mostrarnos el formulario del método de pago.
+
+- Generar una entrada en el menú de administración que genere
+ventas , que esa tabla ventas genere una ClaseVentas que
+permite que accedemos a la bbdd de aquellos usuarios que el
+estado es 1 de aquellos que ya han consumado su venta. Que
+genera una línea con la compra que se ha realizado
+previamente modificada la fecha del estado de la compra.
+
+- El administrador no tiene porque ver un carrito del usuario(
+está en la clase session que los dos usuarios acceden a la
+misma clase de sesión).
+
+- En la tabla ventas se debe mostrar una fila del usuario
+información de producto y fecha actualizada de la compra no
+de cuando se puso en el carrito.
+
+- Cuando se compra se debe guardar la fecha de compra , aparte
+de la fecha de cuando se añade al carrito, se puede realizar
+en closeCart.
+
+- Se debe modificar la bbdd, cuando el usuario compra un
+carrito en config el estado se debe poner state a 1 que
+significa que ya ha sido comprado, de forma que el usuario si
+quiere añadir otra compra debe estar 0 que está pendiente de
+compras.
+
+- cuando realizas la parte de la compra, se debe ampliar en
+administración un informe de ventas que cambian los elementos
+en los que se ha desarrollado.
+
+- Puede ser posible ponerle más estados , como una lista de
+deseos.
+
+- Cuando pague el usuario, se debe verificar que el usuario que
+esté ahí esté dado de alta. Porqué no se verificar .

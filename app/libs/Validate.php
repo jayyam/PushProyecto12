@@ -4,7 +4,7 @@ class Validate
 {
     public static function number($string)
     {
-        $search = [' ', 'Euro','$', ',' ];
+        $search = [' ', '€', '$', ','];
         $replace = ['','','',''];
 
         $number = str_replace($search, $replace, $string);// funcion que cambia los parametros definidos en $string. Uno busca y el otro reemplaza
