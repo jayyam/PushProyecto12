@@ -4,7 +4,7 @@ class SessionAdmin
 {
     private $login = false;
     private $user;
-    private $cartTotal;
+    //private $cartTotal;
 
     public function __construct()
     {
@@ -23,7 +23,7 @@ class SessionAdmin
             $this->login=false;
         }
     }
-    public function login($user)
+    public function login($user) :void
     {
         if ($user)
         {
@@ -32,7 +32,7 @@ class SessionAdmin
             $this->login = true;
         }
     }
-    public function logout()
+    public function logout() :void
     {
         unset($_SESSION['admin']);
         unset($this->user);
@@ -40,7 +40,14 @@ class SessionAdmin
         $this->login = false;
     }
 
-    public function getLogin()
+    public function redirectIfNotLogin($route)
+    {
+        if (!$this->login) {
+            header('location:' . $route);
+        }
+    }
+
+    public function getLogin() :bool
     {
         return $this->login;
     }

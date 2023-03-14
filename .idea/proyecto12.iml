@@ -6,5 +6,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="proyecto14" />
     <orderEntry type="module" module-name="tiendamvc" />
+    <orderEntry type="library" name="ckeditor" level="application" />
   </component>
 </module>

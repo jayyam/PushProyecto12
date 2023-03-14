@@ -130,7 +130,7 @@ class AdminProductController extends Controller
             }
 
             if ($image) {
-                if (Validate::imageFile($_FILES['image']['tmp_name'])) {
+          /*      if (Validate::imageFile($_FILES['image']['tmp_name'])) {
                     $image = strtolower($image);
 
                     if (is_uploaded_file($_FILES['image']['tmp_name'])) {
@@ -142,6 +142,9 @@ class AdminProductController extends Controller
                 }
             } else {
                 array_push($errors, 'Imagen no recibida');
+          */
+
+                $errors = CourseDomain::validateImage($image, $errors);
             }
 
             //CREANDO ARRAY DE DATOS
@@ -282,7 +285,7 @@ class AdminProductController extends Controller
             }
 
             if ($image) {
-                if (Validate::imageFile($_FILES['image']['tmp_name'])) {
+               /* if (Validate::imageFile($_FILES['image']['tmp_name'])) {
                     $image = strtolower($image);
 
                     if (is_uploaded_file($_FILES['image']['tmp_name'])) {
@@ -290,8 +293,12 @@ class AdminProductController extends Controller
                         Validate::resizeImage($image, newWidth: 240);
                     } else {
                         array_push($errors, 'Error al subir el archivo de imagen');
-                    }
-                }
+                    }*/
+
+                $errors = CourseDomain::validateImage($image, $errors);
+
+
+            }
                 //CREANDO ARRAY DE DATOS
 
                 $dataForm = [
@@ -342,29 +349,29 @@ class AdminProductController extends Controller
             $this->view('admin/products/update', $data);
         }
 
-        public
-        function delete($id)
-        {
-            $errors = [];
+        
+    public function delete($id)
+    {
+        $errors = [];
 
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $errors = $this->model->delete($id);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $errors = $this->model->delete($id);
 
-                if (emty($errors)) {
-                    header('location:' . ROOT . 'AdminProduct');
-                }
-
+            if (empty($errors)) {
+                header('location:' . ROOT . 'AdminProduct');
             }
-            $product = $this->model->getProductById($id);
-            $typeConfig = $this->model->getConfig('productType');
 
-            $data = [
-                'titulo' => 'Administración de Productos - Eliminación',
-                'menu' => false,
-                'admin' => true,
-                'type' => $typeConfig,
-                'product' => $product,
-            ];
         }
+        $product = $this->model->getProductById($id);
+        $typeConfig = $this->model->getConfig('productType');
+
+        $data = [
+            'titulo' => 'Administración de Productos - Eliminación',
+            'menu' => false,
+            'admin' => true,
+            'type' => $typeConfig,
+            'product' => $product,
+        ];
     }
-}
+    }
+
