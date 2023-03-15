@@ -7,5 +7,6 @@
     <orderEntry type="module" module-name="proyecto14" />
     <orderEntry type="module" module-name="tiendamvc" />
     <orderEntry type="library" name="ckeditor" level="application" />
+    <orderEntry type="library" name="jquery-3.6.1" level="application" />
   </component>
 </module>

@@ -40,9 +40,7 @@ class AdminProductController extends Controller
     {
         $errors = [];
         $dataForm = [];
-        $typeConfig = $this->model->getConfig('productType');
-        $statusConfig = $this->model->getConfig('productStatus');
-        $catalogue = $this->model->getCatalogue();
+
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
@@ -173,12 +171,22 @@ class AdminProductController extends Controller
             ];
 
             if (!$errors) {
-                if ($this->model->createProduct($dataForm)) {
+                if ($this->model->createBook($dataForm)) {
                     header('location:' . ROOT . 'AdminProduct');
                 }
                 array_push($errors, 'Se ha producido un error en la inserción en la BD');
             }
         }
+
+        $this->viewCreateForm( $errors, $dataForm);
+    }
+
+    public function viewCreateForm($errors = [], $dataForm = [])
+    {
+        $typeConfig = $this->model->getConfig('productType');
+        $statusConfig = $this->model->getConfig('productStatus');
+        $catalogue = $this->model->getCatalogue();
+
         $data = [
             'titulo' => 'Administración de Productos - Alta',
             'menu' => false,
@@ -189,12 +197,13 @@ class AdminProductController extends Controller
             'errors' => $errors,
             'data' => $dataForm,
         ];
+
         $this->view('admin/products/create', $data);
+
     }
 
-    public function update($id)
+    public function update($id, $errors = [])
     {
-        $errors = [];
         //$dataForm = []; //aqui no se necesita
         $typeConfig = $this->model->getConfig('productType');
         $statusConfig = $this->model->getConfig('productStatus');
@@ -350,18 +359,9 @@ class AdminProductController extends Controller
         }
 
         
-    public function delete($id)
+    public function delete($id, $errors =[])
     {
-        $errors = [];
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $errors = $this->model->delete($id);
-
-            if (empty($errors)) {
-                header('location:' . ROOT . 'AdminProduct');
-            }
-
-        }
         $product = $this->model->getProductById($id);
         $typeConfig = $this->model->getConfig('productType');
 
@@ -372,6 +372,9 @@ class AdminProductController extends Controller
             'type' => $typeConfig,
             'product' => $product,
         ];
+
+        $this->view('admin/products/delete', $data);
+
     }
-    }
+}
 

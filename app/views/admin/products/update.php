@@ -3,7 +3,7 @@
 <script src="<?= ROOT . 'js/adminCreateProduct.js' ?>"></script>
 <div class="card p-4 bg-light">
     <div class="card-header">
-        <h1 class="text-center">Alta de un producto</h1>
+        <h1 class="text-center">Edicion de un producto</h1>
     </div>
     <div class="card-body">
         <form action="<?= ROOT ?>adminProduct/update/<?= $data['product']->id?>" method="POST" enctype="multipart/form-data">
@@ -163,7 +163,7 @@
             </div>
             <div class="form-group text-left">
                 <input type="submit" value="Actualizar" class="btn btn-success">
-                <a href="<?= ROOT ?>adminproduct" class="btn btn-info">Regresar</a>
+                <a href="<?= ROOT ?>adminProduct" class="btn btn-info">Regresar</a>
             </div>
         </form>
     </div>
