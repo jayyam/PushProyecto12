@@ -108,5 +108,10 @@ class Validate
         return (bool)(in_array($imageType, [IMAGETYPE_JPEG, IMAGETYPE_PNG]));
     }
 
+    public static function except($description, int $int)
+    {
+
+    }
+
 
 }

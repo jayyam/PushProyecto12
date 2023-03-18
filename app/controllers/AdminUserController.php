@@ -100,7 +100,8 @@ class AdminUserController extends Controller
         }
       else
         {
-        $data = ['titulo' => 'Admninistracion  de usuarios - Alta',
+        $data = [
+            'titulo' => 'Admninistracion  de usuarios - Alta',
             'menu' => false,
             'admin' => true,
             'data' => [],
@@ -113,7 +114,7 @@ class AdminUserController extends Controller
 
     public function update($id)
     {
-        print'Modificacion de usuario' .$id;
+        //print'Modificacion de usuario' .$id;
  	$errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -9,9 +9,9 @@ class Cart
         $this->db = Mysqldb::getInstance()->getDatabase();
     }
 
-    public function verifyProduct($product_id, $user_id, $state)
+    public function verifyProduct($product_id, $user_id)
     {
-        $sql = 'SELECT * FROM carts WHERE product_id =:product_id AND user_id =:user_id AND state=:0';
+        $sql = 'SELECT * FROM carts WHERE product_id =:product_id AND user_id =:user_id';
 
         $query = $this->db->prepare($sql);
         $params = [
@@ -59,7 +59,7 @@ class Cart
                        p.description as description,
                        p.name as name  
                  FROM cart as c, products as p 
-                 WHERE c.user_id=:user_id AND state=0 AND c.product_id=:p.id';
+                 WHERE c.user_id=:user_id AND state=0 AND c.product_id=p.id';
         //CONSULTA TIPO JOIN
         $query = $this->db->prepare($sql);
         $query->execute([':user_id'=>$user_id]);

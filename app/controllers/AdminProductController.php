@@ -13,11 +13,14 @@ class AdminProductController extends Controller
     {
         $session = new SessionAdmin();
 
-        if ($session->getLogin())
-        {
+        if ($session->getLogin()) {
 
             $products = $this->model->getProducts();
             $type = $this->model->getConfig('productType');
+
+            /*foreach($products as $p){
+                $p->description = Validate::except($p->description,30);
+            }*/
 
             $data = [
                 'titulo' => 'Administración de Productos',
@@ -29,9 +32,7 @@ class AdminProductController extends Controller
 
             $this->view('admin/products/index', $data);
 
-        }
-        else
-        {
+        } else {
             header('location:' . ROOT . 'admin');
         }
     }
@@ -41,19 +42,7 @@ class AdminProductController extends Controller
         $errors = [];
         $dataForm = [];
 
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
-
-            // VALIDANDO LA INFORMACION -- FUNCIONES A USAR
-
-            //validaciones de cadenas de caracteres
-            //escapeshellcmd() --> Bypass(Escapa)cadenas de caracteres especiales que vienen de consola de comandos
-            //addslashes() --> Bypass(escapa) las comllias que pueda llevar DENTRO las cadenas de caracteres
-            //htmlentities() --> transforma los caracteres especiales de html a entidades, traduciendolas a su correspondiente simbolo
-
-            //validaciones habituales
-            //if(empty($variable)){array_push($errors, 'mensaje de error');} //si no existe variable
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $type = $_POST['type'] ?? '';
             $name = Validate::text($_POST['name'] ?? '');
@@ -128,21 +117,21 @@ class AdminProductController extends Controller
             }
 
             if ($image) {
-          /*      if (Validate::imageFile($_FILES['image']['tmp_name'])) {
+                if (Validate::imageFile($_FILES['image']['tmp_name'])) {
+
                     $image = strtolower($image);
 
                     if (is_uploaded_file($_FILES['image']['tmp_name'])) {
                         move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $image);
-                        Validate::resizeImage($image, newWidth: 240);
+                        Validate::resizeImage($image, 240);
                     } else {
                         array_push($errors, 'Error al subir el archivo de imagen');
                     }
+                } else {
+                    array_push($errors, 'El formato de imagen no es aceptado');
                 }
             } else {
-                array_push($errors, 'Imagen no recibida');
-          */
-
-                $errors = CourseDomain::validateImage($image, $errors);
+                array_push($errors, 'No he recibido la imagen');
             }
 
             //CREANDO ARRAY DE DATOS
@@ -171,14 +160,14 @@ class AdminProductController extends Controller
             ];
 
             if (!$errors) {
-                if ($this->model->createBook($dataForm)) {
+                if ($this->model->createProduct($dataForm)) {
                     header('location:' . ROOT . 'AdminProduct');
                 }
                 array_push($errors, 'Se ha producido un error en la inserción en la BD');
             }
         }
 
-        $this->viewCreateForm( $errors, $dataForm);
+        $this->viewCreateForm($errors, $dataForm);
     }
 
     public function viewCreateForm($errors = [], $dataForm = [])
@@ -204,22 +193,8 @@ class AdminProductController extends Controller
 
     public function update($id, $errors = [])
     {
-        //$dataForm = []; //aqui no se necesita
-        $typeConfig = $this->model->getConfig('productType');
-        $statusConfig = $this->model->getConfig('productStatus');
-        $catalogue = $this->model->getCatalogue();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            // VALIDANDO LA INFORMACION -- FUNCIONES A USAR
-
-            //validaciones de cadenas de caracteres
-            //escapeshellcmd() --> Bypass(Escapa)cadenas de caracteres especiales que vienen de consola de comandos
-            //addslashes() --> Bypass(escapa) las comllias que pueda llevar DENTRO las cadenas de caracteres
-            //htmlentities() --> transforma los caracteres especiales de html a entidades, traduciendolas a su correspondiente simbolo
-
-            //validaciones habituales
-            //if(empty($variable)){array_push($errors, 'mensaje de error');} //si no existe variable
 
             $type = $_POST['type'] ?? '';
             $name = Validate::text($_POST['name'] ?? '');
@@ -294,72 +269,102 @@ class AdminProductController extends Controller
             }
 
             if ($image) {
-               /* if (Validate::imageFile($_FILES['image']['tmp_name'])) {
+                if (Validate::imageFile($_FILES['image']['tmp_name'])) {
+
                     $image = strtolower($image);
 
                     if (is_uploaded_file($_FILES['image']['tmp_name'])) {
                         move_uploaded_file($_FILES['image']['tmp_name'], 'img/' . $image);
-                        Validate::resizeImage($image, newWidth: 240);
+                        Validate::resizeImage($image, 240);
                     } else {
                         array_push($errors, 'Error al subir el archivo de imagen');
-                    }*/
-
-                $errors = CourseDomain::validateImage($image, $errors);
-
-
-            }
-                //CREANDO ARRAY DE DATOS
-
-                $dataForm = [
-                    'id' => $id,
-                    'type' => $type,
-                    'name' => $name,
-                    'description' => $description,
-                    'author' => $author,
-                    'publisher' => $publisher,
-                    'people' => $people,
-                    'objetives' => $objetives,
-                    'necesites' => $necesites,
-                    'price' => $price,
-                    'discount' => $discount,
-                    'send' => $send,
-                    'pages' => $pages,
-                    'published' => $published,
-                    'image' => $image,
-                    'mostSold' => $mostSold,
-                    'new' => $new,
-                    'relation1' => $relation1,
-                    'relation2' => $relation2,
-                    'relation3' => $relation3,
-                    'status' => $status,
-                ];
-
-                if (!$errors) {
-                    if (count($this->model->updateProduct($dataForm)) == 0) {
-                        header('location:' . ROOT . 'AdminProduct');
                     }
-                    array_push($errors, 'Se ha producido un error en la inserción en la BD');
+                } else {
+                    array_push($errors, 'El formato de imagen no es aceptado');
                 }
             }
 
-            $product = $this->model->getProductById($id);
+            //CREANDO ARRAY DE DATOS
 
-            $data = [
-                'titulo' => 'Administración de Productos - Edicion',
-                'menu' => false,
-                'admin' => true,
-                'type' => $typeConfig,
-                'status' => $statusConfig,
-                'catalogue' => $catalogue,
-                'errors' => $errors,
-                'product' => $product,
+            $dataForm = [
+                'id' => $id,
+                'type' => $type,
+                'name' => $name,
+                'description' => $description,
+                'author' => $author,
+                'publisher' => $publisher,
+                'people' => $people,
+                'objetives' => $objetives,
+                'necesites' => $necesites,
+                'price' => $price,
+                'discount' => $discount,
+                'send' => $send,
+                'pages' => $pages,
+                'published' => $published,
+                'image' => $image,
+                'mostSold' => $mostSold,
+                'new' => $new,
+                'relation1' => $relation1,
+                'relation2' => $relation2,
+                'relation3' => $relation3,
+                'status' => $status,
             ];
 
-            $this->view('admin/products/update', $data);
+            if (!$errors) {
+                if (count($this->model->updateProduct($dataForm)) == 0) {
+                    header('location:' . ROOT . 'AdminProduct');
+                }
+                array_push($errors, 'Se ha producido un error en la inserción en la BD');
+            }
         }
 
-        
-    public function delete($id, $errors =[])
+        $this->viewUpdateForm($id, $errors);
+    }
+
+    public function viewUpdateForm($id, $errors = [])
+    {
+        $typeConfig = $this->model->getConfig('productType');
+        $statusConfig = $this->model->getConfig('productStatus');
+        $catalogue = $this->model->getCatalogue();
+
+        $product = $this->model->getProductById($id);
+
+        $data = [
+            'titulo' => 'Administración de Productos - Edicion',
+            'menu' => false,
+            'admin' => true,
+            'type' => $typeConfig,
+            'status' => $statusConfig,
+            'catalogue' => $catalogue,
+            'errors' => $errors,
+            'product' => $product,
+        ];
+
+        $this->view('admin/products/update', $data);
+    }
+
+    public function delete($id)
+    {
+
+        $errors = [];
+
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            $this->deleteView($id);
+            return;
+        }
+
+        $errors = $this->model->delete($id);
+
+        if (!empty($errors)) {
+            $this->deleteView($id, $errors);
+            return;
+        }
+
+        header('location:' . ROOT . 'AdminProduct');
+
+    }
+
+    public function deleteView($id, $errors = [])
     {
 
         $product = $this->model->getProductById($id);
@@ -371,10 +376,19 @@ class AdminProductController extends Controller
             'admin' => true,
             'type' => $typeConfig,
             'product' => $product,
+            'errors' => $errors,
         ];
 
         $this->view('admin/products/delete', $data);
-
     }
 }
 
+// VALIDANDO LA INFORMACION -- FUNCIONES A USAR
+
+//validaciones de cadenas de caracteres
+//escapeshellcmd() --> Bypass(Escapa)cadenas de caracteres especiales que vienen de consola de comandos
+//addslashes() --> Bypass(escapa) las comllias que pueda llevar DENTRO las cadenas de caracteres
+//htmlentities() --> transforma los caracteres especiales de html a entidades, traduciendolas a su correspondiente simbolo
+
+//validaciones habituales
+//if(empty($variable)){array_push($errors, 'mensaje de error');} //si no existe variable
