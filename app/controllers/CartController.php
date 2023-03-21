@@ -82,7 +82,7 @@ class CartController extends Controller
     {
         $session = new Session();
 
-        if (! $session->getLogin())
+        if ( $session->getLogin())
         {
             $user = $session->getUser();
 
@@ -113,7 +113,7 @@ class CartController extends Controller
             'menu' => true,
         ];
 
-        $this->view('cars/paymentmode', $data);
+        $this->view('carts/paymentmode', $data);
     }
     public function verify()
     {

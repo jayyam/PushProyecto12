@@ -11,7 +11,7 @@ class Search
 
     public function getProducts($string)
     {
-        $sql = 'SELECT * FROM products WHERE deleted=0 AND (name LIKE :name OR published LIKE :published OR author LIKE :author OR people LIKE :people OR description LIKE :description)';
+        $sql = 'SELECT * FROM products WHERE deleted=0 AND (name LIKE :name OR publisher LIKE :publisher OR author LIKE :author OR people LIKE :people OR description LIKE :description)';
         $query = $this->db->prepare($sql);
 
         $params = [
